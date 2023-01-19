@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# bear
+*.cache
+*compile_commands.json
+
+# logs
+*.log
+
+# gdb
+.gdb_history
