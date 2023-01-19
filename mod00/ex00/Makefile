@@ -7,6 +7,9 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 FORMAT = clang-format -i
 
+VALGRIND = valgrind -q --leak-check=full --show-leak-kinds=all
+VALGRIND += --trace-children=yes --track-fds=yes --track-origins=yes
+
 all: $(NAME)
 
 %.o: %.cpp
@@ -25,11 +28,12 @@ fclean: clean
 re: fclean all
 
 leaks:
-	valgrind -q --leak-check=full --show-leak-kinds=all --trace-children=yes \
-	 --track-fds=yes --track-origins=yes \
-	./$(NAME)
+	$(VALGRIND) ./$(NAME)
 
 install:
-	clang-format
+	clang-format bear
 
-.PHONY: all clean fclean re leaks install
+bear:
+	bear -- make re
+
+.PHONY: all clean fclean re leaks install bear
