@@ -6,76 +6,65 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:02:00 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/01/24 14:26:45 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:35:38 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
-Contact::Contact(void)
-{
-	this->_first_name = NULL;
-	this->_last_name = NULL;
-	this->_nickname = NULL;
-	this->_phone_number = NULL;
-	this->_darkest_secret = NULL;
-}
-
-Contact::~Contact(void)
-{
-	// delete this->_first_name;
-	// delete this->_last_name;
-	// delete this->_nickname;
-	// delete this->_phone_number;
-	// delete this->_darkest_secret;
-}
-
-void Contact::setFirstName(char *first_name)
+void Contact::setFirstName(std::string first_name)
 {
 	this->_first_name = first_name;
 }
 
-char *Contact::getFirstName(void)
+std::string Contact::getFirstName(void)
 {
 	return (this->_first_name);
 }
 
-void Contact::setLastName(char *last_name)
+void Contact::setLastName(std::string last_name)
 {
 	this->_last_name = last_name;
 }
 
-char *Contact::getLastName(void)
+std::string Contact::getLastName(void)
 {
 	return (this->_last_name);
 }
 
-void Contact::setNickname(char *nickname)
+void Contact::setNickname(std::string nickname)
 {
 	this->_nickname = nickname;
 }
 
-char *Contact::getNickname(void)
+std::string Contact::getNickname(void)
 {
 	return (this->_nickname);
 }
 
-void Contact::setPhoneNumber(char *phone_number)
+void Contact::setPhoneNumber(std::string phone_number)
 {
 	this->_phone_number = phone_number;
 }
 
-char *Contact::getPhoneNumber(void)
+std::string Contact::getPhoneNumber(void)
 {
 	return (this->_phone_number);
 }
 
-void Contact::setDarkestSecret(char *darkest_secret)
+void Contact::setDarkestSecret(std::string darkest_secret)
 {
 	this->_darkest_secret = darkest_secret;
 }
 
-char *Contact::getDarkestSecret(void)
+std::string Contact::getDarkestSecret(void)
 {
 	return (this->_darkest_secret);
+}
+
+bool Contact::isCompleted()
+{
+	return (!this->_first_name.empty() && !this->_last_name.empty() &&
+	        !this->_nickname.empty() && !this->_phone_number.empty() &&
+	        !this->_darkest_secret.empty());
 }
