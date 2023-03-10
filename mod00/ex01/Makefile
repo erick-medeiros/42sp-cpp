@@ -30,10 +30,16 @@ re: fclean all
 leaks:
 	$(VALGRIND) ./$(NAME)
 
+tests.out: tests.cpp
+	$(CXX) $(CXXFLAGS) tests.cpp -o tests.out -lcriterion
+
+tests: tests.out
+	./tests.out
+
 install:
-	clang-format bear
+	sudo apt install clang-format bear libcriterion-dev
 
 bear:
 	bear -- make re
 
-.PHONY: all clean fclean re leaks install bear
+.PHONY: all clean fclean re leaks tests install bear
