@@ -17,7 +17,7 @@ MaxEmptyLinesToKeep: 1
 PointerAlignment: Right
 PenaltyBreakBeforeFirstCallParameter: 1
 PenaltyBreakString: 1
-PenaltyExcessCharacter: 0
+# PenaltyExcessCharacter: 0
 SpaceAfterCStyleCast: true
 SpaceBeforeAssignmentOperators: true
 SpaceBeforeParens: ControlStatements
