@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:32:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/15 17:47:57 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:03:15 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,23 @@ std::string PhoneBook::_formatColumn(std::string column)
 		return (column);
 }
 
+void PhoneBook::_addSeparator(std::string title)
+{
+	const int size = 43;
+
+	int result = (size - title.length()) / 2;
+	std::cout << std::setfill('=') << std::setw(size - result) << title;
+	std::cout << std::setfill('=') << std::setw(result) << "";
+	std::cout << std::endl << std::setfill(' ') << std::setw(0);
+}
+
 Contact PhoneBook::_createContact(void)
 {
 	Contact     contact;
 	std::string input;
 
 	std::cout << std::endl;
-	std::cout << "==== CREATE A NEW CONTACT =====" << std::endl;
+	this->_addSeparator(" CREATE A NEW CONTACT ");
 	std::cout << std::endl;
 	std::cout << "What is your first name?" << std::endl;
 	std::getline(std::cin, input);
@@ -71,7 +81,7 @@ Contact PhoneBook::_createContact(void)
 	std::cout << "What is your darkest secret?" << std::endl;
 	std::getline(std::cin, input);
 	contact.setDarkestSecret(input);
-	std::cout << "==============================" << std::endl;
+	this->_addSeparator("");
 	return (contact);
 }
 
@@ -164,7 +174,8 @@ void PhoneBook::displaySavedContacts(void)
 	size_t  index;
 	Contact ct;
 
-	std::cout << std::endl << "========== CONTACTS ==========" << std::endl;
+	std::cout << std::endl;
+	this->_addSeparator(" CONTACTS ");
 	std::cout << std::setw(10) << "INDEX"
 	          << "|" << std::setw(10) << "FIRST NAME"
 	          << "|" << std::setw(10) << "LAST NAME"
@@ -180,7 +191,8 @@ void PhoneBook::displaySavedContacts(void)
 		          << "|" << std::setw(10)
 		          << this->_formatColumn(ct.getNickname()) << std::endl;
 	}
-	std::cout << "==============================" << std::endl << std::endl;
+	this->_addSeparator("");
+	std::cout << std::endl;
 }
 
 void PhoneBook::displayContactInformation(size_t index)
@@ -191,11 +203,11 @@ void PhoneBook::displayContactInformation(size_t index)
 		return;
 	contact = this->_contacts[index - 1];
 	std::cout << std::endl;
-	std::cout << "=========== CONTACT ==========" << std::endl;
+	this->_addSeparator("CONTACT");
 	std::cout << "First Name: " << contact.getFirstName() << std::endl;
 	std::cout << "Last Name: " << contact.getLastName() << std::endl;
 	std::cout << "Nickname: " << contact.getNickname() << std::endl;
 	std::cout << "Phone Number: " << contact.getPhoneNumber() << std::endl;
 	std::cout << "Darkest Secret: " << contact.getDarkestSecret() << std::endl;
-	std::cout << "==============================" << std::endl;
+	this->_addSeparator("");
 }
