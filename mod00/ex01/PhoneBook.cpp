@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:32:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/15 15:49:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:47:57 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ Contact PhoneBook::_createContact(void)
 	std::string input;
 
 	std::cout << std::endl;
-	std::cout << "===== CREATE A NEW CONTACT =====" << std::endl;
+	std::cout << "==== CREATE A NEW CONTACT =====" << std::endl;
 	std::cout << std::endl;
 	std::cout << "What is your first name?" << std::endl;
 	std::getline(std::cin, input);
@@ -75,7 +75,7 @@ Contact PhoneBook::_createContact(void)
 	return (contact);
 }
 
-void PhoneBook::chooseCommand(PhoneBook &phonebook)
+int PhoneBook::chooseCommand()
 {
 	std::string input;
 
@@ -85,7 +85,7 @@ void PhoneBook::chooseCommand(PhoneBook &phonebook)
 	{
 		Contact contact = this->_createContact();
 		if (contact.isCompleted())
-			phonebook.add(contact);
+			this->add(contact);
 		else
 			std::cerr << std::endl << "Error: incomplete contact" << std::endl;
 	}
@@ -96,29 +96,25 @@ void PhoneBook::chooseCommand(PhoneBook &phonebook)
 		else
 		{
 			this->displaySavedContacts();
-			try
-			{
-				size_t index = this->chooseIndex();
-				this->displayContactInformation(index);
-			}
-			catch (std::string err)
-			{
-				std::cerr << std::endl << err << std::endl;
-			}
+			size_t index = this->chooseIndex();
+			if (index == 0)
+				return (1);
+			this->displayContactInformation(index);
 		}
 	}
 	else if (input.compare("3") == 0)
-		phonebook.exit();
+		return (1);
 	else if (std::cin.eof())
 	{
 		std::cout << std::endl;
-		phonebook.exit();
+		return (1);
 	}
 	else
 	{
 		std::cout << "Invalid option" << std::endl;
-		return (this->chooseCommand(phonebook));
+		return (this->chooseCommand());
 	}
+	return (0);
 }
 
 size_t PhoneBook::chooseIndex(void)
@@ -128,13 +124,13 @@ size_t PhoneBook::chooseIndex(void)
 	std::string input;
 
 	if (this->_size == 0)
-		throw std::string("Empty phone book");
+		return 0;
 	std::cout << "Choose an index from 1 to " << this->_size << ": ";
 	std::getline(std::cin, input);
 	if (std::cin.eof())
 	{
 		std::cout << std::endl;
-		this->exit();
+		return (0);
 	}
 	index = std::atoi(input.c_str());
 	if (!this->_isNumber(input) || index == 0 || index > this->_size)
@@ -202,9 +198,4 @@ void PhoneBook::displayContactInformation(size_t index)
 	std::cout << "Phone Number: " << contact.getPhoneNumber() << std::endl;
 	std::cout << "Darkest Secret: " << contact.getDarkestSecret() << std::endl;
 	std::cout << "==============================" << std::endl;
-}
-
-void PhoneBook::exit(void)
-{
-	std::exit(0);
 }

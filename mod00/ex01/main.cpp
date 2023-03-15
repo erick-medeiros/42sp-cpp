@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:32:31 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/15 11:09:31 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:03:32 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int main(void)
 		std::cout << "	(2) SEARCH" << std::endl;
 		std::cout << "	(3) EXIT" << std::endl;
 		std::cout << std::endl;
-		pb.chooseCommand(pb);
+		if (pb.chooseCommand())
+			break;
 	}
 }
