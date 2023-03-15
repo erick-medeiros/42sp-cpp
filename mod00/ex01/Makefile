@@ -4,11 +4,15 @@ SRC = main.cpp Contact.cpp PhoneBook.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 $(LIBS)
+LIBS = -I../../lib/
 FORMAT = clang-format -i
 
-VALGRIND = valgrind -q --leak-check=full --show-leak-kinds=all
-VALGRIND += --trace-children=yes --track-fds=yes --track-origins=yes
+TESTER = tests.out
+OBJ_TEST = tests.o
+
+VALGRIND = valgrind -q --leak-check=full --show-leak-kinds=all \
+--trace-children=yes --track-fds=yes --track-origins=yes
 
 all: $(NAME)
 
@@ -20,26 +24,26 @@ $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(OBJ_TEST)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(TESTER)
 
 re: fclean all
 
 leaks:
 	$(VALGRIND) ./$(NAME)
 
-tests.out: tests.cpp
-	$(CXX) $(CXXFLAGS) tests.cpp -o tests.out -lcriterion
+$(TESTER): $(NAME) $(OBJ_TEST)
+	$(CXX) $(CXXFLAGS) -o $(TESTER) $(OBJ_TEST) $(filter-out main.o, $(OBJ))
 
-tests: tests.out
-	./tests.out
+tests: $(TESTER)
+	./$(TESTER)
 
 install:
-	sudo apt install clang-format bear libcriterion-dev
+	sudo apt install clang-format bear
 
 bear:
 	bear -- make re
 
-.PHONY: all clean fclean re leaks tests install bear
+.PHONY: all clean fclean re leaks tests install bear tests
