@@ -27,6 +27,9 @@ TEST_CASE("saving information in class Contact")
 	CHECK_EQ(ct_full.getNickname(), "Genius");
 	CHECK_EQ(ct_full.getPhoneNumber(), "42");
 	CHECK_EQ(ct_full.getDarkestSecret(), "Wolfenstein 3D");
+
+	Contact ct_empty("", "", "", "", "");
+	CHECK_FALSE(ct_empty.isCompleted());
 }
 
 TEST_CASE("checking if all of the Contact class have been filled in")
@@ -68,4 +71,35 @@ TEST_CASE("check the maximum limit of eight contacts in the phonebook")
 	CHECK_EQ(phonebook.getSize(), 8);
 	phonebook.add((Contact("9", "9", "9", "9", "9")));
 	CHECK_EQ(phonebook.getSize(), 8);
+}
+
+TEST_CASE("check incomplete contact save")
+{
+	PhoneBook phonebook;
+	Contact   contact;
+
+	CHECK_EQ(phonebook.getSize(), 0);
+	//
+	phonebook.add(contact);
+	CHECK_EQ(phonebook.getSize(), 0);
+	//
+	contact.setFirstName("first name");
+	phonebook.add(contact);
+	CHECK_EQ(phonebook.getSize(), 0);
+	//
+	contact.setLastName("last name");
+	phonebook.add(contact);
+	CHECK_EQ(phonebook.getSize(), 0);
+	//
+	contact.setNickname("nickname");
+	phonebook.add(contact);
+	CHECK_EQ(phonebook.getSize(), 0);
+	//
+	contact.setPhoneNumber("phone number");
+	phonebook.add(contact);
+	CHECK_EQ(phonebook.getSize(), 0);
+	//
+	contact.setDarkestSecret("darknest secret");
+	phonebook.add(contact);
+	CHECK_EQ(phonebook.getSize(), 1);
 }
