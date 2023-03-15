@@ -2,6 +2,7 @@
 #define DOCTEST_CONFIG_NO_POSIX_SIGNALS
 
 #include "Contact.hpp"
+#include "PhoneBook.hpp"
 #include "doctest.h"
 
 TEST_CASE("saving information in class Contact")
@@ -42,4 +43,29 @@ TEST_CASE("checking if all of the Contact class have been filled in")
 	CHECK_FALSE(ct.isCompleted());
 	ct.setDarkestSecret("Wolfenstein 3D");
 	CHECK(ct.isCompleted());
+}
+
+TEST_CASE("check the maximum limit of eight contacts in the phonebook")
+{
+	PhoneBook phonebook;
+
+	CHECK_EQ(phonebook.getSize(), 0);
+	phonebook.add((Contact("1", "1", "1", "1", "1")));
+	CHECK_EQ(phonebook.getSize(), 1);
+	phonebook.add((Contact("2", "2", "2", "2", "2")));
+	CHECK_EQ(phonebook.getSize(), 2);
+	phonebook.add((Contact("3", "3", "3", "3", "3")));
+	CHECK_EQ(phonebook.getSize(), 3);
+	phonebook.add((Contact("4", "4", "4", "4", "4")));
+	CHECK_EQ(phonebook.getSize(), 4);
+	phonebook.add((Contact("5", "5", "5", "5", "5")));
+	CHECK_EQ(phonebook.getSize(), 5);
+	phonebook.add((Contact("6", "6", "6", "6", "6")));
+	CHECK_EQ(phonebook.getSize(), 6);
+	phonebook.add((Contact("7", "7", "7", "7", "7")));
+	CHECK_EQ(phonebook.getSize(), 7);
+	phonebook.add((Contact("8", "8", "8", "8", "8")));
+	CHECK_EQ(phonebook.getSize(), 8);
+	phonebook.add((Contact("9", "9", "9", "9", "9")));
+	CHECK_EQ(phonebook.getSize(), 8);
 }

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:32:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/15 12:10:33 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:42:17 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 PhoneBook::PhoneBook()
 {
 	this->_size = 0;
+}
+
+size_t PhoneBook::getSize(void)
+{
+	return (this->_size);
 }
 
 bool PhoneBook::_isNumber(const std::string &str)

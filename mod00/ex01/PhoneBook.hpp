@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:32:38 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/15 11:59:49 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:33:59 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class PhoneBook
   public:
 	PhoneBook();
 	void	chooseCommand(PhoneBook &phonebook);
+	size_t	getSize(void);
 	void    add(Contact contact);
 	void	search(void);
 	void    exit(void);
