@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:01:22 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/01/24 15:39:21 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:19:07 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ class Contact
 	std::string _darkest_secret;
 
   public:
+	Contact();
+	Contact(std::string first_name, std::string last_name, std::string nickname,
+	        std::string phone_number, std::string darkest_secret);
 	void        setFirstName(std::string first_name);
 	std::string getFirstName(void);
 	void        setLastName(std::string last_name);

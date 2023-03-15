@@ -6,11 +6,26 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:02:00 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/01/24 15:35:38 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:19:16 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
+
+Contact::Contact()
+{
+}
+
+Contact::Contact(std::string first_name, std::string last_name,
+                 std::string nickname, std::string phone_number,
+                 std::string darkest_secret)
+{
+	this->_first_name = first_name;
+	this->_last_name = last_name;
+	this->_nickname = nickname;
+	this->_phone_number = phone_number;
+	this->_darkest_secret = darkest_secret;
+}
 
 void Contact::setFirstName(std::string first_name)
 {
