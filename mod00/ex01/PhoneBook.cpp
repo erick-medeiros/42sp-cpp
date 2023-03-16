@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:32:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/15 18:03:15 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:01:05 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,39 @@ Contact PhoneBook::_createContact(void)
 	std::cout << std::endl;
 	std::cout << "What is your first name?" << std::endl;
 	std::getline(std::cin, input);
-	contact.setFirstName(input);
+	while (!contact.setFirstName(input))
+	{
+		std::cout << "Error: invalid name" << std::endl;
+		std::getline(std::cin, input);
+	}
 	std::cout << "What is your last name?" << std::endl;
 	std::getline(std::cin, input);
-	contact.setLastName(input);
+	while (!contact.setLastName(input))
+	{
+		std::cout << "Error: invalid name" << std::endl;
+		std::getline(std::cin, input);
+	}
 	std::cout << "What is your nickname?" << std::endl;
 	std::getline(std::cin, input);
-	contact.setNickname(input);
+	while (!contact.setNickname(input))
+	{
+		std::cout << "Error: invalid nickname" << std::endl;
+		std::getline(std::cin, input);
+	}
 	std::cout << "What is your phone number?" << std::endl;
 	std::getline(std::cin, input);
-	contact.setPhoneNumber(input);
+	while (!contact.setPhoneNumber(input))
+	{
+		std::cout << "Error: invalid phone" << std::endl;
+		std::getline(std::cin, input);
+	}
 	std::cout << "What is your darkest secret?" << std::endl;
 	std::getline(std::cin, input);
-	contact.setDarkestSecret(input);
+	while (!contact.setDarkestSecret(input))
+	{
+		std::cout << "Error: invalid darkest secret" << std::endl;
+		std::getline(std::cin, input);
+	}
 	this->_addSeparator("");
 	return (contact);
 }
@@ -203,7 +223,7 @@ void PhoneBook::displayContactInformation(size_t index)
 		return;
 	contact = this->_contacts[index - 1];
 	std::cout << std::endl;
-	this->_addSeparator("CONTACT");
+	this->_addSeparator(" CONTACT ");
 	std::cout << "First Name: " << contact.getFirstName() << std::endl;
 	std::cout << "Last Name: " << contact.getLastName() << std::endl;
 	std::cout << "Nickname: " << contact.getNickname() << std::endl;

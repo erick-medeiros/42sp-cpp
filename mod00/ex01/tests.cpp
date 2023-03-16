@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 12:15:05 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/16 12:15:06 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:13:00 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ TEST_CASE("saving information in class Contact")
 	ct.setFirstName("John");
 	ct.setLastName("Carmack");
 	ct.setNickname("Genius");
-	ct.setPhoneNumber("42");
+	ct.setPhoneNumber("42424242");
 	ct.setDarkestSecret("Wolfenstein 3D");
 	CHECK_EQ(ct.getFirstName(), "John");
 	CHECK_EQ(ct.getLastName(), "Carmack");
 	CHECK_EQ(ct.getNickname(), "Genius");
-	CHECK_EQ(ct.getPhoneNumber(), "42");
+	CHECK_EQ(ct.getPhoneNumber(), "42424242");
 	CHECK_EQ(ct.getDarkestSecret(), "Wolfenstein 3D");
 
-	Contact ct_full("John", "Carmack", "Genius", "42", "Wolfenstein 3D");
+	Contact ct_full("John", "Carmack", "Genius", "42424242", "Wolfenstein 3D");
 
 	CHECK_EQ(ct_full.getFirstName(), "John");
 	CHECK_EQ(ct_full.getLastName(), "Carmack");
 	CHECK_EQ(ct_full.getNickname(), "Genius");
-	CHECK_EQ(ct_full.getPhoneNumber(), "42");
+	CHECK_EQ(ct_full.getPhoneNumber(), "42424242");
 	CHECK_EQ(ct_full.getDarkestSecret(), "Wolfenstein 3D");
 
 	Contact ct_empty("", "", "", "", "");
@@ -54,7 +54,7 @@ TEST_CASE("checking if all of the Contact class have been filled in")
 	CHECK_FALSE(ct.isCompleted());
 	ct.setNickname("Genius");
 	CHECK_FALSE(ct.isCompleted());
-	ct.setPhoneNumber("42");
+	ct.setPhoneNumber("42424242");
 	CHECK_FALSE(ct.isCompleted());
 	ct.setDarkestSecret("Wolfenstein 3D");
 	CHECK(ct.isCompleted());
@@ -95,11 +95,11 @@ TEST_CASE("check incomplete contact save")
 	phonebook.add(contact);
 	CHECK_EQ(phonebook.getSize(), 0);
 	//
-	contact.setFirstName("first name");
+	contact.setFirstName("first");
 	phonebook.add(contact);
 	CHECK_EQ(phonebook.getSize(), 0);
 	//
-	contact.setLastName("last name");
+	contact.setLastName("last");
 	phonebook.add(contact);
 	CHECK_EQ(phonebook.getSize(), 0);
 	//
@@ -107,11 +107,48 @@ TEST_CASE("check incomplete contact save")
 	phonebook.add(contact);
 	CHECK_EQ(phonebook.getSize(), 0);
 	//
-	contact.setPhoneNumber("phone number");
+	contact.setPhoneNumber("42424242");
 	phonebook.add(contact);
 	CHECK_EQ(phonebook.getSize(), 0);
 	//
 	contact.setDarkestSecret("darknest secret");
 	phonebook.add(contact);
 	CHECK_EQ(phonebook.getSize(), 1);
+}
+
+TEST_CASE("validate contact fields")
+{
+	Contact ct;
+
+	CHECK_FALSE(ct.setFirstName(""));
+	CHECK_FALSE(ct.setFirstName("f a"));
+	CHECK_FALSE(ct.setFirstName("fffff a"));
+	CHECK_FALSE(ct.setFirstName("42"));
+	CHECK_FALSE(ct.setFirstName("42 123"));
+	CHECK(ct.setFirstName("first"));
+	//
+	CHECK_FALSE(ct.setLastName(""));
+	CHECK_FALSE(ct.setLastName("f a"));
+	CHECK_FALSE(ct.setLastName("fffff a"));
+	CHECK_FALSE(ct.setLastName("42"));
+	CHECK_FALSE(ct.setLastName("42 123"));
+	CHECK(ct.setLastName("last"));
+	//
+	CHECK_FALSE(ct.setLastName(""));
+	CHECK_FALSE(ct.setLastName("nickname "));
+	CHECK_FALSE(ct.setLastName("f a"));
+	CHECK_FALSE(ct.setLastName("fffff a"));
+	CHECK_FALSE(ct.setLastName("42"));
+	CHECK_FALSE(ct.setLastName("42 123"));
+	CHECK(ct.setLastName("nickname"));
+	//
+	CHECK_FALSE(ct.setPhoneNumber(""));
+	CHECK_FALSE(ct.setPhoneNumber("+ 1a"));
+	CHECK_FALSE(ct.setPhoneNumber("111"));
+	CHECK_FALSE(ct.setPhoneNumber("11111"));
+	CHECK_FALSE(ct.setPhoneNumber("11111111111111111111111111111111111111111"));
+	CHECK_FALSE(ct.setPhoneNumber("- -- - - ---"));
+	CHECK(ct.setPhoneNumber("+1234567"));
+	CHECK(ct.setPhoneNumber("1234567"));
+	CHECK(ct.setPhoneNumber("123456789012345"));
 }
