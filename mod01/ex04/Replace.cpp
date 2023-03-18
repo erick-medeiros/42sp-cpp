@@ -6,13 +6,11 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:34:33 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/17 23:57:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:46:58 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Replace.hpp"
-
-#include <iostream>
 
 Replace::Replace(std::string &filename, std::string &search,
                  std::string &replace)
@@ -28,8 +26,6 @@ void Replace::run(void)
 	char          c;
 	size_t        i;
 
-	if (_search.size() == 0)
-		return;
 	input.open(_filename.c_str());
 	if (!input.is_open())
 		throw std::string("Error opening: " + _filename);
@@ -38,6 +34,11 @@ void Replace::run(void)
 	{
 		input.close();
 		throw std::string("Error opening output file");
+	}
+	if (_search.size() == 0)
+	{
+		output << input.rdbuf();
+		return;
 	}
 	match.clear();
 	i = 0;

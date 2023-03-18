@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:34:30 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/17 17:48:18 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:08:22 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define REPLACE_HPP
 
 #include <fstream>
+#include <iostream>
 #include <string>
 
 class Replace
