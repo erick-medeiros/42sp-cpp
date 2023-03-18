@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:27:47 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/18 15:13:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:25:28 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <iostream>
 #include <string>
+
+#define LEVELS 4
 
 class Harl
 {
