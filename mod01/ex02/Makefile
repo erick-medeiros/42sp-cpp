@@ -1,4 +1,4 @@
-NAME = out.out
+NAME = string.out
 
 SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
