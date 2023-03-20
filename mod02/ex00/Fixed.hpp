@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:16:53 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/20 17:31:00 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:03:34 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class Fixed
 
   private:
 	int              _number;
-	static const int _bits = 8;
+	static const int _bits;
 };
 
 #endif /* FIXED_HPP */

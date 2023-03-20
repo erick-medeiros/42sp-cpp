@@ -6,11 +6,13 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:32:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/20 17:54:59 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:05:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
+
+const int Fixed::_bits = 8;
 
 Fixed::Fixed(void) : _number(0)
 {
