@@ -73,6 +73,7 @@ echo "
 
 $CLASS::$CLASS(const $CLASS &copy)
 {
+	(void) copy;
 }
 
 $CLASS &$CLASS::operator=(const $CLASS &copy)
