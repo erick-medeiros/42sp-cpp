@@ -6,12 +6,14 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:16:53 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/20 16:33:51 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:31:00 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 #define FIXED_HPP
+
+#include <iostream>
 
 class Fixed
 {
