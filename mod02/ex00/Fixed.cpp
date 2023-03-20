@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:32:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/20 17:30:55 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:54:59 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ Fixed::~Fixed(void)
 int Fixed::getRawBits(void) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
-	return 0;
+	return _number;
 }
 
 void Fixed::setRawBits(int const raw)
