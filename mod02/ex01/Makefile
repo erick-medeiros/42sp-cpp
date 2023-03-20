@@ -40,6 +40,7 @@ $(TESTER): $(NAME) $(OBJ_TEST)
 	$(CXX) $(CXXFLAGS) -o $(TESTER) $(OBJ_TEST) $(filter-out main.o, $(OBJ))
 
 tests: $(TESTER)
+	bash tests.sh
 	$(VALGRIND) ./$(TESTER)
 
 install:
