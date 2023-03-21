@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:04:03 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/20 23:06:02 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/20 23:20:42 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,12 @@ TEST_CASE("Test fixed-point of Class Fixed")
 	CHECK_GT(fixed.toFloat(), 1.99218f);
 	CHECK_LT(fixed.toFloat(), 1.99219f);
 	//
+}
+
+TEST_CASE("Test rawBits of Class Fixed")
+{
+	Fixed fixed = Fixed(1);
+	CHECK_EQ(fixed.getRawBits(), 0B100000000);
+	fixed = Fixed(1.1f); // 1.0001100110011001101
+	CHECK_EQ(fixed.getRawBits(), 0B100011010);
 }
