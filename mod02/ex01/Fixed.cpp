@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:32:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/20 19:17:27 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/20 22:33:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ Fixed::Fixed(const int value) : _value(value << _bits)
 	std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed::Fixed(const float value) : _value(value * (1 << _bits))
+Fixed::Fixed(const float value) : _value(roundf(value * (1 << _bits)))
 {
 	std::cout << "Float constructor called" << std::endl;
 }
