@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 23:23:45 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/20 23:23:48 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/21 00:07:54 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,83 @@ TEST_CASE("Test rawBits of Class Fixed")
 	CHECK_EQ(fixed.getRawBits(), 0B100000000);
 	fixed = Fixed(1.1f); // 1.0001100110011001101
 	CHECK_EQ(fixed.getRawBits(), 0B100011010);
+}
+
+TEST_CASE("Comparison operators of Class Fixed")
+{
+	SUBCASE(">")
+	{
+		Fixed f1(0B11);
+		Fixed f2(0B10);
+
+		CHECK(f1 > f2);
+		CHECK_FALSE(f2 > f1);
+	}
+	SUBCASE("<")
+	{
+		Fixed f1(0B11);
+		Fixed f2(0B10);
+
+		CHECK(f2 < f1);
+		CHECK_FALSE(f1 < f2);
+	}
+	SUBCASE(">=")
+	{
+		Fixed f1(0B11);
+		Fixed f2(0B10);
+		Fixed f3(0B10);
+
+		CHECK(f1 >= f2);
+		CHECK(f2 >= f3);
+		CHECK_FALSE(f1 < f2);
+		CHECK_FALSE(f2 < f3);
+	}
+	SUBCASE("<=")
+	{
+		Fixed f1(0B10);
+		Fixed f2(0B11);
+		Fixed f3(0B11);
+
+		CHECK(f1 <= f2);
+		CHECK(f2 <= f3);
+		CHECK_FALSE(f1 > f2);
+		CHECK_FALSE(f2 > f3);
+	}
+	SUBCASE("==")
+	{
+		Fixed f1(0B11);
+		Fixed f2(0B11);
+
+		CHECK(f1 == f2);
+		CHECK_FALSE(f1 != f2);
+	}
+	SUBCASE("!=")
+	{
+		Fixed f1(0B10);
+		Fixed f2(0B11);
+
+		CHECK(f1 != f2);
+		CHECK_FALSE(f1 == f2);
+	}
+}
+
+TEST_CASE("Arithmetic operators of Class Fixed")
+{
+	SUBCASE("+")
+	{
+		Fixed f1(1);
+		Fixed f2(1);
+		Fixed f3 = f1 + f2;
+
+		CHECK_EQ(f3.toInt(), 2);
+	}
+	SUBCASE("-")
+	{
+	}
+	SUBCASE("*")
+	{
+	}
+	SUBCASE("/")
+	{
+	}
 }
