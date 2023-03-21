@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 23:23:45 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/21 00:07:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:28:07 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,47 @@ TEST_CASE("Arithmetic operators of Class Fixed")
 	}
 	SUBCASE("-")
 	{
+		Fixed f1(1);
+		Fixed f2(1);
+		Fixed f3 = f1 - f2;
+
+		CHECK_EQ(f3.toInt(), 0);
 	}
 	SUBCASE("*")
 	{
+		Fixed f1(2);
+		Fixed f2(2);
+		Fixed f3 = f1 * f2;
+
+		CHECK_EQ(f3.toInt(), 4);
+
+		// 1.5f * 1.5f = 2.25f
+		// n = 1.5f
+		// n == 1.5f == fixed<23, 8> 384 == 0B1_1000_0000
+		// n * n == fixed<x, 16> 147456 == 0B10_0100_0000_0000_0000
+		// (n * n) >> 8 == fixed<23, 8> 576 == 0B10_0100_0000
+		// ((n * n) >> 8) >> 8 = 2.25f
+
+		f1 = Fixed(1.5f);
+		f2 = Fixed(1.5f);
+		f3 = f1 * f2;
+
+		CHECK_EQ(f3.toFloat(), 2.25f);
 	}
 	SUBCASE("/")
 	{
+		Fixed f1(2);
+		Fixed f2(2);
+		Fixed f3 = f1 / f2;
+
+		CHECK_EQ(f3.toInt(), 1);
+
+		// (n1 << _bits) / n2
+
+		f1 = Fixed(4);
+		f2 = Fixed(1.6f);
+		f3 = f1 / f2; // == 2.5f
+		CHECK_GT(f3.toFloat(), 2.4f);
+		CHECK_LE(f3.toFloat(), 2.5f);
 	}
 }

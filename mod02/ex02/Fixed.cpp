@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 23:23:31 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/21 00:14:09 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:26:53 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,22 +94,51 @@ bool Fixed::operator!=(const Fixed &fixed) const
 
 Fixed Fixed::operator+(const Fixed &fixed)
 {
-	return (this->getRawBits() + fixed.getRawBits());
+	Fixed copy;
+
+	copy.setRawBits(this->getRawBits() + fixed.getRawBits());
+	return (copy);
 }
 
 Fixed Fixed::operator-(const Fixed &fixed)
 {
-	return (this->getRawBits() - fixed.getRawBits());
+	Fixed copy;
+
+	copy.setRawBits(this->getRawBits() - fixed.getRawBits());
+	return (copy);
 }
 
 Fixed Fixed::operator*(const Fixed &fixed)
 {
-	return (this->getRawBits() * fixed.getRawBits());
+	Fixed    copy;
+	long int raw = this->getRawBits() * fixed.getRawBits();
+	raw += (1 << (_bits - 1)); // rounding
+	raw = raw >> _bits;
+	if (raw > INT_MAX)
+		raw = INT_MAX;
+	if (raw < INT_MIN)
+		raw = INT_MIN;
+	copy.setRawBits(raw);
+	return (copy);
 }
 
 Fixed Fixed::operator/(const Fixed &fixed)
 {
-	return (this->getRawBits() / fixed.getRawBits());
+	Fixed    copy;
+	long int raw = this->getRawBits();
+	long int div = fixed.getRawBits();
+
+	if (div == 0)
+	{
+		copy.setRawBits(INT_MIN);
+		return (copy);
+	}
+
+	raw = raw << _bits;
+	raw = raw + (div >> 1); // rounding
+
+	copy.setRawBits(raw / div);
+	return (copy);
 }
 
 Fixed &Fixed::operator++(void)
@@ -118,10 +147,11 @@ Fixed &Fixed::operator++(void)
 	return (*this);
 }
 
-Fixed &Fixed::operator++(int)
+Fixed Fixed::operator++(int)
 {
+	Fixed copy = *this;
 	this->setRawBits(this->getRawBits() + 1);
-	return (*this);
+	return (copy);
 }
 
 Fixed &Fixed::operator--(void)
@@ -130,10 +160,11 @@ Fixed &Fixed::operator--(void)
 	return (*this);
 }
 
-Fixed &Fixed::operator--(int)
+Fixed Fixed::operator--(int)
 {
+	Fixed copy = *this;
 	this->setRawBits(this->getRawBits() - 1);
-	return (*this);
+	return (copy);
 }
 
 Fixed &Fixed::min(Fixed &fixed1, Fixed &fixed2)

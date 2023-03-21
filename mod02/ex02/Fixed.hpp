@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 23:23:38 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/21 00:14:13 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/21 17:14:07 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <limits.h>
 
 class Fixed
 {
@@ -40,9 +41,9 @@ class Fixed
 	Fixed operator/(const Fixed &fixed);
 	// increment/decrement
 	Fixed &operator++(void);
-	Fixed &operator++(int);
+	Fixed  operator++(int);
 	Fixed &operator--(void);
-	Fixed &operator--(int);
+	Fixed  operator--(int);
 
 	int  getRawBits(void) const;
 	void setRawBits(int const raw);
