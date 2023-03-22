@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 23:23:45 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/21 18:35:34 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/22 07:58:59 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define DOCTEST_CONFIG_NO_POSIX_SIGNALS
 
 #include "Fixed.hpp"
+#include "Point.hpp"
 #include "doctest.h"
 
 TEST_CASE("Test fixed-point of Class Fixed")
@@ -171,3 +172,21 @@ TEST_CASE("Arithmetic operators of Class Fixed")
 }
 
 /*                Point                    */
+
+TEST_CASE("constructor Class Point")
+{
+	Point p1(1, 1);
+	Point p2(2, 2);
+
+	CHECK_EQ(p1.getX().toInt(), 1);
+	CHECK_EQ(p1.getY().toInt(), 1);
+	CHECK_EQ(p2.getX().toInt(), 2);
+	CHECK_EQ(p2.getY().toInt(), 2);
+
+	p2 = p1;
+
+	CHECK_EQ(p1.getX().toInt(), 1);
+	CHECK_EQ(p1.getY().toInt(), 1);
+	CHECK_EQ(p2.getX().toInt(), 1);
+	CHECK_EQ(p2.getY().toInt(), 1);
+}
