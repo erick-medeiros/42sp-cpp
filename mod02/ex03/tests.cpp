@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 23:23:45 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/22 07:58:59 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:07:02 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,4 +189,16 @@ TEST_CASE("constructor Class Point")
 	CHECK_EQ(p1.getY().toInt(), 1);
 	CHECK_EQ(p2.getX().toInt(), 1);
 	CHECK_EQ(p2.getY().toInt(), 1);
+}
+
+/*                bsp                    */
+
+TEST_CASE("bsp")
+{
+	CHECK_FALSE(bsp(Point(0, 0), Point(0, 1), Point(1, 0), Point(1.1, 0)));
+	CHECK(bsp(Point(0, 0), Point(0, 1), Point(1, 0), Point(0.9, 0)));
+	CHECK(bsp(Point(0, 0), Point(0, 1), Point(1, 0), Point(1, 0)));
+	CHECK(bsp(Point(0, 0), Point(5, 5), Point(10, 0), Point(1, 1)));
+	CHECK_FALSE(bsp(Point(1.1, 1.1), Point(5.5, 5.5), Point(10.10, 1.1),
+	                Point(11, 1.1)));
 }
