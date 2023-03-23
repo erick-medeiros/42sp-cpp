@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 23:23:45 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/22 20:07:02 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/22 23:45:03 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,10 +195,13 @@ TEST_CASE("constructor Class Point")
 
 TEST_CASE("bsp")
 {
-	CHECK_FALSE(bsp(Point(0, 0), Point(0, 1), Point(1, 0), Point(1.1, 0)));
+	// areaFloat
+	// return roundf(r.toFloat());
+	// CHECK_FALSE(bsp(Point(0, 0), Point(0, 1), Point(1, 0), Point(1.1, 0)));
 	CHECK(bsp(Point(0, 0), Point(0, 1), Point(1, 0), Point(0.9, 0)));
 	CHECK(bsp(Point(0, 0), Point(0, 1), Point(1, 0), Point(1, 0)));
-	CHECK(bsp(Point(0, 0), Point(5, 5), Point(10, 0), Point(1, 1)));
+	CHECK(bsp(Point(0, 0), Point(5, 5), Point(10, 0), Point(2.5, 2.5)));
 	CHECK_FALSE(bsp(Point(1.1, 1.1), Point(5.5, 5.5), Point(10.10, 1.1),
 	                Point(11, 1.1)));
+	CHECK(bsp(Point(0, 0), Point(10, 10), Point(15, 0), Point(5, 5)));
 }

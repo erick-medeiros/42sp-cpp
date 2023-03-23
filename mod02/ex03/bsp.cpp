@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:58:38 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/22 20:02:28 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/22 23:45:22 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int area(Point const &p1, Point const &p2, Point const &p3)
 	Fixed y3 = p3.getY();
 	Fixed r = (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / Fixed(2);
 	r = r.max(r, Fixed(r * -1));
-	return roundf(r.toFloat());
+	return r.toInt();
 }
 
 bool bsp(Point const a, Point const b, Point const c, Point const point)
