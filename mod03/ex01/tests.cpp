@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:04:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/28 11:40:26 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:49:12 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define DOCTEST_CONFIG_NO_POSIX_SIGNALS
 
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 #include "doctest.h"
 
 TEST_CASE("Default")
@@ -124,5 +125,39 @@ TEST_CASE("ClapTrap be Repaired")
 		ct.beRepaired(5);
 		CHECK_EQ(ct.getHitPoints(), 60);
 		CHECK_EQ(ct.getEnergyPoints(), 0);
+	}
+}
+
+// ScavTrap
+
+TEST_CASE("ScavTrap")
+{
+	SUBCASE("Init")
+	{
+		ScavTrap st;
+
+		CHECK_EQ(st.getName(), "mascot");
+		CHECK_EQ(st.getHitPoints(), 100);
+		CHECK_EQ(st.getEnergyPoints(), 50);
+		CHECK_EQ(st.getAttackDamage(), 20);
+
+		ScavTrap st2;
+
+		st2.setName("st2");
+		st2.setHitPoints(5);
+		st2.setEnergyPoints(15);
+		st2.setAttackDamage(25);
+
+		CHECK_EQ(st2.getName(), "st2");
+		CHECK_EQ(st2.getHitPoints(), 5);
+		CHECK_EQ(st2.getEnergyPoints(), 15);
+		CHECK_EQ(st2.getAttackDamage(), 25);
+
+		st = st2;
+
+		CHECK_EQ(st.getName(), "st2");
+		CHECK_EQ(st.getHitPoints(), 5);
+		CHECK_EQ(st.getEnergyPoints(), 15);
+		CHECK_EQ(st.getAttackDamage(), 25);
 	}
 }

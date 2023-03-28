@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 10:53:24 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/28 18:52:23 by eandre-f         ###   ########.fr       */
+/*   Created: 2023/03/28 14:15:54 by eandre-f          #+#    #+#             */
+/*   Updated: 2023/03/28 18:43:04 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef SCAVTRAP_HPP
+#define SCAVTRAP_HPP
+
 #include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
+#include <string>
 
-int main()
+class ScavTrap : public ClapTrap
 {
-	{
-		ClapTrap ct("ct");
+  public:
+	ScavTrap(void);
+	ScavTrap(const ScavTrap &copy);
+	ScavTrap &operator=(const ScavTrap &copy);
+	~ScavTrap(void);
 
-		ct.attack("tr");
-		ct.takeDamage(5);
-		ct.beRepaired(5);
-	}
-	{
-		ScavTrap st("st");
+	ScavTrap(std::string name);
 
-		st.attack("tr");
-		st.takeDamage(5);
-		st.beRepaired(5);
-	}
-	return (0);
-}
+	void guardGate();
+
+  private:
+};
+
+#endif /* SCAVTRAP_HPP */
