@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:15:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/28 18:44:14 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:09:22 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,24 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 	this->setHitPoints(100);
 	this->setEnergyPoints(50);
 	this->setAttackDamage(20);
+}
+
+void ScavTrap::attack(const std::string &target)
+{
+	if (getEnergyPoints() == 0)
+	{
+		std::cout << "ScavTrap " << getName() << " no energy to attack!"
+		          << std::endl;
+		return;
+	}
+	setEnergyPoints(getEnergyPoints() - 1);
+	std::cout << "ScavTrap " << getName() << " attacks " << target
+	          << ", causing " << getAttackDamage() << " points of damage!"
+	          << std::endl;
+}
+
+void ScavTrap::guardGate(void)
+{
+	std::cout << "ScavTrap " << getName() << " is now in Gate keeper mode"
+	          << std::endl;
 }

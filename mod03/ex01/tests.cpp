@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:04:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/28 18:49:12 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:02:20 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,22 @@ TEST_CASE("ScavTrap")
 		CHECK_EQ(st.getHitPoints(), 5);
 		CHECK_EQ(st.getEnergyPoints(), 15);
 		CHECK_EQ(st.getAttackDamage(), 25);
+	}
+
+	SUBCASE("Attack")
+	{
+		ScavTrap st;
+
+		CHECK_EQ(st.getName(), "mascot");
+		CHECK_EQ(st.getHitPoints(), 100);
+		CHECK_EQ(st.getEnergyPoints(), 50);
+		CHECK_EQ(st.getAttackDamage(), 20);
+
+		st.attack("tr");
+
+		CHECK_EQ(st.getName(), "mascot");
+		CHECK_EQ(st.getHitPoints(), 100);
+		CHECK_EQ(st.getEnergyPoints(), 49);
+		CHECK_EQ(st.getAttackDamage(), 20);
 	}
 }

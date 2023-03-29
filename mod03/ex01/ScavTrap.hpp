@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:15:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/28 18:43:04 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/29 10:57:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class ScavTrap : public ClapTrap
 	~ScavTrap(void);
 
 	ScavTrap(std::string name);
+	void attack(const std::string &target);
 
 	void guardGate();
 
