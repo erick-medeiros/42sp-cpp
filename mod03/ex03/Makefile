@@ -1,11 +1,12 @@
 NAME = diamondTrap
 
-SRC = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
-INC = ClapTrap.hpp ScavTrap.hpp FragTrap.hpp
+SRC = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
+INC = ClapTrap.hpp ScavTrap.hpp FragTrap.hpp DiamondTrap.hpp
 OBJ = $(SRC:.cpp=.o)
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 $(LIBS) -g
+#-Wshadow  -Wno-shadow
 LIBS = -I../../lib/
 FORMAT = clang-format -i
 

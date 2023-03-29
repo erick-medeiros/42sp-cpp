@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:04:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/29 18:35:21 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:13:39 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define DOCTEST_CONFIG_NO_POSIX_SIGNALS
 
 #include "ClapTrap.hpp"
+#include "DiamondTrap.hpp"
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 #include "doctest.h"
@@ -228,5 +229,56 @@ TEST_CASE("FragTrap")
 		CHECK_EQ(ft.getHitPoints(), 100);
 		CHECK_EQ(ft.getEnergyPoints(), 99);
 		CHECK_EQ(ft.getAttackDamage(), 30);
+	}
+}
+
+// FragTrap
+
+TEST_CASE("DiamondTrap")
+{
+	SUBCASE("Init")
+	{
+		DiamondTrap dt;
+
+		CHECK_EQ(dt.getName(), "mascot");
+		CHECK_EQ(dt.getHitPoints(), 100);
+		CHECK_EQ(dt.getEnergyPoints(), 50);
+		CHECK_EQ(dt.getAttackDamage(), 30);
+
+		DiamondTrap dt2;
+
+		dt2.setName("st2");
+		dt2.setHitPoints(5);
+		dt2.setEnergyPoints(15);
+		dt2.setAttackDamage(25);
+
+		CHECK_EQ(dt2.getName(), "st2");
+		CHECK_EQ(dt2.getHitPoints(), 5);
+		CHECK_EQ(dt2.getEnergyPoints(), 15);
+		CHECK_EQ(dt2.getAttackDamage(), 25);
+
+		dt = dt2;
+
+		CHECK_EQ(dt.getName(), "st2");
+		CHECK_EQ(dt.getHitPoints(), 5);
+		CHECK_EQ(dt.getEnergyPoints(), 15);
+		CHECK_EQ(dt.getAttackDamage(), 25);
+	}
+
+	SUBCASE("Attack")
+	{
+		DiamondTrap dt;
+
+		CHECK_EQ(dt.getName(), "mascot");
+		CHECK_EQ(dt.getHitPoints(), 100);
+		CHECK_EQ(dt.getEnergyPoints(), 100);
+		CHECK_EQ(dt.getAttackDamage(), 30);
+
+		dt.attack("tr");
+
+		CHECK_EQ(dt.getName(), "mascot");
+		CHECK_EQ(dt.getHitPoints(), 100);
+		CHECK_EQ(dt.getEnergyPoints(), 99);
+		CHECK_EQ(dt.getAttackDamage(), 30);
 	}
 }

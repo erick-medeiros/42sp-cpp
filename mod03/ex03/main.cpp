@@ -6,11 +6,12 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:53:24 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/29 18:39:50 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:07:39 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
+#include "DiamondTrap.hpp"
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
@@ -43,7 +44,12 @@ int main()
 	}
 	std::cout << std::endl;
 	{
-		//
+		DiamondTrap dt("dt");
+
+		dt.attack("tr");
+		dt.takeDamage(5);
+		dt.beRepaired(5);
+		dt.whoAmI();
 	}
 	return (0);
 }

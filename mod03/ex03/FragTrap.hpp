@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:19:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/29 14:58:19 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:51:32 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "ClapTrap.hpp"
 
-class FragTrap : public ClapTrap
+class FragTrap : virtual public ClapTrap
 {
   public:
 	FragTrap(void);
