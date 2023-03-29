@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:04:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/29 19:13:39 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:25:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,14 +271,14 @@ TEST_CASE("DiamondTrap")
 
 		CHECK_EQ(dt.getName(), "mascot");
 		CHECK_EQ(dt.getHitPoints(), 100);
-		CHECK_EQ(dt.getEnergyPoints(), 100);
+		CHECK_EQ(dt.getEnergyPoints(), 50);
 		CHECK_EQ(dt.getAttackDamage(), 30);
 
 		dt.attack("tr");
 
 		CHECK_EQ(dt.getName(), "mascot");
 		CHECK_EQ(dt.getHitPoints(), 100);
-		CHECK_EQ(dt.getEnergyPoints(), 99);
+		CHECK_EQ(dt.getEnergyPoints(), 49);
 		CHECK_EQ(dt.getAttackDamage(), 30);
 	}
 }
