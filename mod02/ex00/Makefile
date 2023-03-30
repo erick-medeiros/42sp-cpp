@@ -16,11 +16,11 @@ all: $(NAME)
 
 %.o: %.cpp $(INC)
 	@$(FORMAT) $< || true
-		$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
 	@$(FORMAT) $(INC) || true
-		$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
 clean:
 	$(RM) $(OBJ)
