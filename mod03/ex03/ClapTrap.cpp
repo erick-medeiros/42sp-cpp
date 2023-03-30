@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:52:53 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/28 16:39:58 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:17:33 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ ClapTrap::~ClapTrap(void)
 
 // } OCF
 
-ClapTrap::ClapTrap(std::string name)
+ClapTrap::ClapTrap(const std::string &name)
     : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
 	std::cout << "ClapTrap constructor (name) called" << std::endl;
@@ -109,24 +109,4 @@ const int &ClapTrap::getEnergyPoints() const
 const int &ClapTrap::getAttackDamage() const
 {
 	return _attackDamage;
-}
-
-void ClapTrap::setName(std::string name)
-{
-	_name = name;
-}
-
-void ClapTrap::setHitPoints(int hitPoints)
-{
-	_hitPoints = hitPoints;
-}
-
-void ClapTrap::setEnergyPoints(int energyPoints)
-{
-	_energyPoints = energyPoints;
-}
-
-void ClapTrap::setAttackDamage(int attackDamage)
-{
-	_attackDamage = attackDamage;
 }

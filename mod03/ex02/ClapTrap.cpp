@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:52:53 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/28 16:39:58 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:09:37 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &copy)
 	std::cout << "ClapTrap copy assignment operator called" << std::endl;
 	if (this != &copy)
 	{
-		this->_name = copy._name;
-		this->_hitPoints = copy._hitPoints;
-		this->_energyPoints = copy._energyPoints;
-		this->_attackDamage = copy._attackDamage;
+		_name = copy._name;
+		_hitPoints = copy._hitPoints;
+		_energyPoints = copy._energyPoints;
+		_attackDamage = copy._attackDamage;
 	}
 	return *this;
 }
@@ -46,7 +46,7 @@ ClapTrap::~ClapTrap(void)
 
 // } OCF
 
-ClapTrap::ClapTrap(std::string name)
+ClapTrap::ClapTrap(const std::string &name)
     : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
 	std::cout << "ClapTrap constructor (name) called" << std::endl;
@@ -109,24 +109,4 @@ const int &ClapTrap::getEnergyPoints() const
 const int &ClapTrap::getAttackDamage() const
 {
 	return _attackDamage;
-}
-
-void ClapTrap::setName(std::string name)
-{
-	_name = name;
-}
-
-void ClapTrap::setHitPoints(int hitPoints)
-{
-	_hitPoints = hitPoints;
-}
-
-void ClapTrap::setEnergyPoints(int energyPoints)
-{
-	_energyPoints = energyPoints;
-}
-
-void ClapTrap::setAttackDamage(int attackDamage)
-{
-	_attackDamage = attackDamage;
 }

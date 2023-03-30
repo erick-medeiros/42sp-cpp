@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:19:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/29 14:58:19 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:11:18 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class FragTrap : public ClapTrap
 	FragTrap &operator=(const FragTrap &copy);
 	~FragTrap(void);
 
-	FragTrap(std::string name);
+	FragTrap(const std::string &name);
 
 	void highFivesGuys(void);
 

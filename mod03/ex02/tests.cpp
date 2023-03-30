@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:04:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/29 14:55:16 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:15:56 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ TEST_CASE("Default")
 	CHECK_EQ(ct.getEnergyPoints(), 10);
 	CHECK_EQ(ct.getAttackDamage(), 0);
 
-	ct.setEnergyPoints(15);
-	CHECK_EQ(ct.getEnergyPoints(), 15);
+	ct.attack("cr");
+	CHECK_EQ(ct.getEnergyPoints(), 9);
 
 	ct = ClapTrap("namedd");
 
@@ -141,24 +141,18 @@ TEST_CASE("FragTrap")
 		CHECK_EQ(ft.getEnergyPoints(), 100);
 		CHECK_EQ(ft.getAttackDamage(), 30);
 
-		FragTrap ft2;
+		FragTrap ft2("ft2");
 
-		ft2.setName("st2");
-		ft2.setHitPoints(5);
-		ft2.setEnergyPoints(15);
-		ft2.setAttackDamage(25);
+		ft2.attack("cr");
 
-		CHECK_EQ(ft2.getName(), "st2");
-		CHECK_EQ(ft2.getHitPoints(), 5);
-		CHECK_EQ(ft2.getEnergyPoints(), 15);
-		CHECK_EQ(ft2.getAttackDamage(), 25);
+		CHECK_EQ(ft2.getEnergyPoints(), 99);
 
 		ft = ft2;
 
-		CHECK_EQ(ft.getName(), "st2");
-		CHECK_EQ(ft.getHitPoints(), 5);
-		CHECK_EQ(ft.getEnergyPoints(), 15);
-		CHECK_EQ(ft.getAttackDamage(), 25);
+		CHECK_EQ(ft.getName(), "ft2");
+		CHECK_EQ(ft.getHitPoints(), 100);
+		CHECK_EQ(ft.getEnergyPoints(), 99);
+		CHECK_EQ(ft.getAttackDamage(), 30);
 	}
 
 	SUBCASE("Attack")
@@ -176,5 +170,12 @@ TEST_CASE("FragTrap")
 		CHECK_EQ(ft.getHitPoints(), 100);
 		CHECK_EQ(ft.getEnergyPoints(), 99);
 		CHECK_EQ(ft.getAttackDamage(), 30);
+	}
+
+	SUBCASE("high fives guys")
+	{
+		FragTrap ft("ft");
+
+		ft.highFivesGuys();
 	}
 }

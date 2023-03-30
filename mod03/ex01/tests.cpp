@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:04:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/29 11:02:20 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:15:18 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ TEST_CASE("Default")
 	CHECK_EQ(ct.getHitPoints(), 10);
 	CHECK_EQ(ct.getEnergyPoints(), 10);
 	CHECK_EQ(ct.getAttackDamage(), 0);
-
-	ct.setEnergyPoints(15);
-	CHECK_EQ(ct.getEnergyPoints(), 15);
 
 	ct = ClapTrap("namedd");
 
@@ -141,24 +138,18 @@ TEST_CASE("ScavTrap")
 		CHECK_EQ(st.getEnergyPoints(), 50);
 		CHECK_EQ(st.getAttackDamage(), 20);
 
-		ScavTrap st2;
+		ScavTrap st2("st2");
 
-		st2.setName("st2");
-		st2.setHitPoints(5);
-		st2.setEnergyPoints(15);
-		st2.setAttackDamage(25);
+		st2.attack("tr");
 
-		CHECK_EQ(st2.getName(), "st2");
-		CHECK_EQ(st2.getHitPoints(), 5);
-		CHECK_EQ(st2.getEnergyPoints(), 15);
-		CHECK_EQ(st2.getAttackDamage(), 25);
+		CHECK_EQ(st2.getEnergyPoints(), 49);
 
 		st = st2;
 
 		CHECK_EQ(st.getName(), "st2");
-		CHECK_EQ(st.getHitPoints(), 5);
-		CHECK_EQ(st.getEnergyPoints(), 15);
-		CHECK_EQ(st.getAttackDamage(), 25);
+		CHECK_EQ(st.getHitPoints(), 100);
+		CHECK_EQ(st.getEnergyPoints(), 49);
+		CHECK_EQ(st.getAttackDamage(), 20);
 	}
 
 	SUBCASE("Attack")
@@ -176,5 +167,11 @@ TEST_CASE("ScavTrap")
 		CHECK_EQ(st.getHitPoints(), 100);
 		CHECK_EQ(st.getEnergyPoints(), 49);
 		CHECK_EQ(st.getAttackDamage(), 20);
+	}
+
+	SUBCASE("guard Gate")
+	{
+		ScavTrap st("st");
+		st.guardGate();
 	}
 }

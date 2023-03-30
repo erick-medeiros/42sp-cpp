@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:04:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/28 11:40:26 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 10:44:53 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ TEST_CASE("Default")
 	CHECK_EQ(ct.getHitPoints(), 10);
 	CHECK_EQ(ct.getEnergyPoints(), 10);
 	CHECK_EQ(ct.getAttackDamage(), 0);
-
-	ct.setEnergyPoints(15);
-	CHECK_EQ(ct.getEnergyPoints(), 15);
 
 	ct = ClapTrap("namedd");
 

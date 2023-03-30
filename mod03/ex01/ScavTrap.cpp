@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:15:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/29 11:09:22 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:08:00 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 ScavTrap::ScavTrap(void) : ClapTrap()
 {
 	std::cout << "ScavTrap default constructor called" << std::endl;
-	this->setHitPoints(100);
-	this->setEnergyPoints(50);
-	this->setAttackDamage(20);
+	_hitPoints = 100;
+	_energyPoints = 50;
+	_attackDamage = 20;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &copy) : ClapTrap()
@@ -31,10 +31,10 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &copy)
 	std::cout << "ScavTrap copy assignment operator called" << std::endl;
 	if (this != &copy)
 	{
-		this->setName(copy.getName());
-		this->setHitPoints(copy.getHitPoints());
-		this->setEnergyPoints(copy.getEnergyPoints());
-		this->setAttackDamage(copy.getAttackDamage());
+		_name = copy._name;
+		_hitPoints = copy._hitPoints;
+		_energyPoints = copy._energyPoints;
+		_attackDamage = copy._attackDamage;
 	}
 	return *this;
 }
@@ -44,30 +44,29 @@ ScavTrap::~ScavTrap(void)
 	std::cout << "ScavTrap destructor called" << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
+ScavTrap::ScavTrap(const std::string &name) : ClapTrap(name)
 {
 	std::cout << "ScavTrap constructor (name) called" << std::endl;
-	this->setHitPoints(100);
-	this->setEnergyPoints(50);
-	this->setAttackDamage(20);
+	_hitPoints = 100;
+	_energyPoints = 50;
+	_attackDamage = 20;
 }
 
 void ScavTrap::attack(const std::string &target)
 {
-	if (getEnergyPoints() == 0)
+	if (_energyPoints == 0)
 	{
-		std::cout << "ScavTrap " << getName() << " no energy to attack!"
+		std::cout << "ScavTrap " << _name << " no energy to attack!"
 		          << std::endl;
 		return;
 	}
-	setEnergyPoints(getEnergyPoints() - 1);
-	std::cout << "ScavTrap " << getName() << " attacks " << target
-	          << ", causing " << getAttackDamage() << " points of damage!"
-	          << std::endl;
+	_energyPoints--;
+	std::cout << "ScavTrap " << _name << " attacks " << target << ", causing "
+	          << _attackDamage << " points of damage!" << std::endl;
 }
 
 void ScavTrap::guardGate(void)
 {
-	std::cout << "ScavTrap " << getName() << " is now in Gate keeper mode"
+	std::cout << "ScavTrap " << _name << " is now in Gate keeper mode"
 	          << std::endl;
 }
