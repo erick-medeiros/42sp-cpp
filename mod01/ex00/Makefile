@@ -6,7 +6,7 @@ OBJ = $(SRC:.cpp=.o)
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 $(LIBS) -g
 LIBS = -I../../lib/
-FORMAT = clang-format -i
+FORMAT = which clang-format >/dev/null 2>&1 && clang-format -i
 
 TESTER = tests.out
 OBJ_TEST = tests.o
@@ -17,7 +17,7 @@ VALGRIND = valgrind -q --leak-check=full --show-leak-kinds=all \
 all: $(NAME)
 
 %.o: %.cpp
-	@$(FORMAT) $<
+	@$(FORMAT) $< || true
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)

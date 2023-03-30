@@ -5,7 +5,7 @@ OBJ = $(SRC:.cpp=.o)
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
-FORMAT = clang-format -i
+FORMAT = which clang-format >/dev/null 2>&1 && clang-format -i
 
 VALGRIND = valgrind -q --leak-check=full --show-leak-kinds=all \
 --trace-children=yes --track-fds=yes --track-origins=yes
@@ -13,7 +13,7 @@ VALGRIND = valgrind -q --leak-check=full --show-leak-kinds=all \
 all: $(NAME)
 
 %.o: %.cpp
-	@$(FORMAT) $<
+	@$(FORMAT) $< || true
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
