@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:41:04 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/03/29 20:51:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/03/29 22:49:09 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ DiamondTrap::DiamondTrap(void)
     : ClapTrap(), ScavTrap(), FragTrap(), _name("mascot")
 {
 	std::cout << "DiamondTrap default constructor called" << std::endl;
-	// ScavTrap::setEnergyPoints(50);
+	ScavTrap::setEnergyPoints(50);
 	this->setHitPoints(FragTrap::getHitPoints());
 	this->setEnergyPoints(ScavTrap::getEnergyPoints());
 	this->setAttackDamage(FragTrap::getAttackDamage());
