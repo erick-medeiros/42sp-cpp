@@ -6,19 +6,19 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:22:55 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 15:30:05 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:47:00 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-Dog::Dog(void)
+Dog::Dog(void) : brain(new Brain)
 {
 	std::cout << "Dog default constructor called" << std::endl;
 	type = "Dog";
 }
 
-Dog::Dog(const Dog &copy) : Animal()
+Dog::Dog(const Dog &copy) : Animal(), brain(new Brain)
 {
 	std::cout << "Dog copy constructor called" << std::endl;
 	*this = copy;
@@ -37,6 +37,7 @@ Dog &Dog::operator=(const Dog &copy)
 Dog::~Dog(void)
 {
 	std::cout << "Dog destructor called" << std::endl;
+	delete brain;
 }
 
 void Dog::makeSound(void) const

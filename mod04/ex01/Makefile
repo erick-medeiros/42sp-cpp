@@ -1,6 +1,6 @@
 NAME = polymorphism
 
-SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp
+SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp Brain.cpp
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g -I../../lib/

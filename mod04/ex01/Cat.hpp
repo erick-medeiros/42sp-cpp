@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:22:57 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 15:07:46 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:40:13 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define CAT_HPP
 
 #include "Animal.hpp"
+#include "Brain.hpp"
 #include <iostream>
 
 class Cat : public Animal
@@ -27,6 +28,7 @@ class Cat : public Animal
 	void makeSound(void) const;
 
   private:
+	Brain *brain;
 };
 
 #endif /* CAT_HPP */
