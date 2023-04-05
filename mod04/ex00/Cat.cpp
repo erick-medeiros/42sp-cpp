@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:22:57 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 15:00:48 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:32:13 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ Cat &Cat::operator=(const Cat &copy)
 Cat::~Cat(void)
 {
 	std::cout << "Cat destructor called" << std::endl;
+}
+
+void Cat::makeSound(void) const
+{
+	std::cout << "Meow!" << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:22:55 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 15:01:23 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:30:05 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ Dog &Dog::operator=(const Dog &copy)
 Dog::~Dog(void)
 {
 	std::cout << "Dog destructor called" << std::endl;
+}
+
+void Dog::makeSound(void) const
+{
+	std::cout << "Woof woof!" << std::endl;
 }

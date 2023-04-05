@@ -6,13 +6,13 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:41:04 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 14:35:45 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:53:03 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Animal.hpp"
 
-Animal::Animal(void)
+Animal::Animal(void) : type("Animal")
 {
 	std::cout << "Animal default constructor called" << std::endl;
 }
@@ -41,4 +41,9 @@ Animal::~Animal(void)
 const std::string &Animal::getType(void) const
 {
 	return type;
+}
+
+void Animal::makeSound(void) const
+{
+	std::cout << "Roar!" << std::endl;
 }
