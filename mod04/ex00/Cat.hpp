@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 18:41:04 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 14:35:34 by eandre-f         ###   ########.fr       */
+/*   Created: 2023/04/05 14:22:57 by eandre-f          #+#    #+#             */
+/*   Updated: 2023/04/05 14:27:40 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#ifndef CAT_HPP
+#define CAT_HPP
 
+#include "Animal.hpp"
 #include <iostream>
-#include <string>
 
-class Animal
+class Cat : public Animal
 {
   public:
-	Animal(void);
-	Animal(const Animal &copy);
-	Animal &operator=(const Animal &copy);
-	~Animal(void);
-
-	const std::string &getType(void) const;
-
-  protected:
-	std::string type;
+	Cat(void);
+	Cat(const Cat &copy);
+	Cat &operator=(const Cat &copy);
+	~Cat(void);
 
   private:
 };
 
-#endif /* ANIMAL_HPP */
+#endif /* CAT_HPP */

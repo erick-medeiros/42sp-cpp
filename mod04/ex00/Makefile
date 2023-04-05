@@ -1,6 +1,6 @@
 NAME = polymorphism
 
-SRC = main.cpp Animal.cpp
+SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g -I../../lib/
@@ -27,7 +27,7 @@ $(BUILD_DIR)/%.o: %.cpp
 	@$(FORMAT)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ) | $(BUILD_DIR)
+$(NAME): $(BUILD_DIR) $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
 
 $(BUILD_DIR):
@@ -47,11 +47,11 @@ run: $(NAME)
 leaks: $(NAME)
 	$(VALGRIND) ./$(NAME)
 
-$(TESTER): $(NAME) $(OBJ_TEST) | $(BUILD_DIR) #doctest.h
+$(TESTER): $(BUILD_DIR) $(NAME) $(OBJ_TEST) #doctest.h
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJ_TEST) $(filter-out %main.o, $(OBJ))
 
-tests: #$(TESTER)
-#	@$(VALGRIND) ./$(TESTER)
+tests: $(TESTER)
+	@$(VALGRIND) ./$(TESTER)
 
 retests: fclean tests
 

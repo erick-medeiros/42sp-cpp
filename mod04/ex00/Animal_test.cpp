@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   Animal_test.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 18:41:04 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 14:35:34 by eandre-f         ###   ########.fr       */
+/*   Created: 2023/03/27 12:04:54 by eandre-f          #+#    #+#             */
+/*   Updated: 2023/04/05 14:58:04 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#include "Animal.hpp"
+#include "doctest.h"
+#include <cstdio>
 
-#include <iostream>
-#include <string>
-
-class Animal
+TEST_SUITE("Class Animal")
 {
-  public:
-	Animal(void);
-	Animal(const Animal &copy);
-	Animal &operator=(const Animal &copy);
-	~Animal(void);
-
-	const std::string &getType(void) const;
-
-  protected:
-	std::string type;
-
-  private:
-};
-
-#endif /* ANIMAL_HPP */
+	TEST_CASE("Orthodox Canonical Form")
+	{
+		{
+			freopen("/dev/null", "w", stdout);
+			Animal animal1;
+			Animal animal2(animal1);
+			Animal animal3 = animal2;
+		}
+		freopen("/dev/tty", "w", stdout);
+	}
+}
