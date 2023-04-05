@@ -51,6 +51,8 @@ echo "
 #ifndef "$CLASS_UPPER"_HPP
 #define "$CLASS_UPPER"_HPP
 
+#include <iostream>
+
 class $CLASS
 {
   public:
@@ -69,15 +71,18 @@ echo "
 
 "$CLASS"::"$CLASS"(void)
 {
+	std::cout << \"$CLASS default constructor called\" << std::endl;
 }
 
 $CLASS::$CLASS(const $CLASS &copy)
 {
+	std::cout << \"$CLASS copy constructor called\" << std::endl;
 	*this = copy;
 }
 
 $CLASS &$CLASS::operator=(const $CLASS &copy)
 {
+	std::cout << \"$CLASS copy assignment operator called\" << std::endl;
 	if (this != &copy)
 	{
 		(void) copy;
@@ -87,4 +92,5 @@ $CLASS &$CLASS::operator=(const $CLASS &copy)
 
 "$CLASS"::~"$CLASS"(void)
 {
+	std::cout << \"$CLASS destructor called\" << std::endl;
 }" >> $FILE_CPP
