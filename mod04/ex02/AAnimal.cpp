@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   AAnimal.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:41:04 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 15:53:03 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/06 09:01:43 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 
-Animal::Animal(void) : type("Animal")
+AAnimal::AAnimal(void) : type("Animal")
 {
 	std::cout << "Animal default constructor called" << std::endl;
 }
 
-Animal::Animal(const Animal &copy)
+AAnimal::AAnimal(const AAnimal &copy)
 {
 	std::cout << "Animal copy constructor called" << std::endl;
 	*this = copy;
 }
 
-Animal &Animal::operator=(const Animal &copy)
+AAnimal &AAnimal::operator=(const AAnimal &copy)
 {
 	std::cout << "Animal copy assignment operator called" << std::endl;
 	if (this != &copy)
@@ -33,17 +33,17 @@ Animal &Animal::operator=(const Animal &copy)
 	return *this;
 }
 
-Animal::~Animal(void)
+AAnimal::~AAnimal(void)
 {
 	std::cout << "Animal destructor called" << std::endl;
 }
 
-const std::string &Animal::getType(void) const
+const std::string &AAnimal::getType(void) const
 {
 	return type;
 }
 
-void Animal::makeSound(void) const
+void AAnimal::makeSound(void) const
 {
 	std::cout << "Roar!" << std::endl;
 }

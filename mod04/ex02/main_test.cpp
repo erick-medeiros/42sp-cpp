@@ -6,14 +6,14 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:50:45 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 16:17:45 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/06 08:52:10 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #define DOCTEST_CONFIG_NO_POSIX_SIGNALS
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 #include "doctest.h"
@@ -22,9 +22,9 @@ TEST_CASE("Subtype polymorphism")
 {
 	{
 		freopen("/dev/null", "w", stdout);
-		const Animal *meta = new Animal();
-		const Animal *j = new Dog();
-		const Animal *i = new Cat();
+		const AAnimal *meta = new AAnimal();
+		const AAnimal *j = new Dog();
+		const AAnimal *i = new Cat();
 		freopen("/dev/tty", "w", stdout);
 		std::streambuf    *coutbuf = std::cout.rdbuf();
 		std::ostringstream oss_animal;

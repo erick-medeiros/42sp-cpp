@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal_test.cpp                                    :+:      :+:    :+:   */
+/*   AAnimal_test.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:04:54 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 16:11:05 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/06 08:50:56 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "doctest.h"
 #include <cstdio>
 #include <iostream>
@@ -23,9 +23,9 @@ TEST_SUITE("Class Animal")
 	{
 		{
 			freopen("/dev/null", "w", stdout);
-			Animal animal1;
-			Animal animal2(animal1);
-			Animal animal3 = animal2;
+			AAnimal animal1;
+			AAnimal animal2(animal1);
+			AAnimal animal3 = animal2;
 		}
 		freopen("/dev/tty", "w", stdout);
 	}
@@ -34,7 +34,7 @@ TEST_SUITE("Class Animal")
 	{
 		{
 			freopen("/dev/null", "w", stdout);
-			Animal animal;
+			AAnimal animal;
 			freopen("/dev/tty", "w", stdout);
 
 			CHECK_EQ(animal.getType(), "Animal");
@@ -50,7 +50,7 @@ TEST_SUITE("Class Animal")
 			std::streambuf    *coutbuf = std::cout.rdbuf();
 
 			freopen("/dev/null", "w", stdout);
-			Animal animal;
+			AAnimal animal;
 			freopen("/dev/tty", "w", stdout);
 
 			std::cout.rdbuf(oss.rdbuf());

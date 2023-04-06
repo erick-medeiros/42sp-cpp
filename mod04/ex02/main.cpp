@@ -6,11 +6,11 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:36:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/05 19:22:38 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/06 08:51:55 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 #include <cstdlib>
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	if (total <= 0 || total >= 1000)
 		return 1;
 
-	Animal *animals[total];
+	AAnimal *animals[total];
 
 	int i = 0;
 	for (; i < total / 2; i++)
