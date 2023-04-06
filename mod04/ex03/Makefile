@@ -1,6 +1,8 @@
 NAME = polymorphism
 
-SRC = main.cpp
+SRC = main.cpp 
+SRC += AMateria.cpp Ice.cpp Cure.cpp
+SRC += Character.cpp MateriaSource.cpp
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g -I../../lib/
