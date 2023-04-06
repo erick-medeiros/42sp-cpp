@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:41:04 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/06 09:01:48 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:13:35 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ class AAnimal
 	AAnimal &operator=(const AAnimal &copy);
 	virtual ~AAnimal(void);
 
-	const std::string &getType(void) const;
+	virtual const std::string &getType(void) const;
 
-	virtual void makeSound(void) const;
+	virtual void makeSound(void) const = 0;
 
   protected:
 	std::string type;

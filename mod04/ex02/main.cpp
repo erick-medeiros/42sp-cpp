@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:36:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/06 08:51:55 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:22:41 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int main(int argc, char *argv[])
 
 	if (total <= 0 || total >= 1000)
 		return 1;
+
+	// AAnimal animal; // error: AAnimal is abstract class
 
 	AAnimal *animals[total];
 

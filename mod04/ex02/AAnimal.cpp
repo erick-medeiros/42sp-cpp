@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:41:04 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/06 09:01:43 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:16:50 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,4 @@ AAnimal::~AAnimal(void)
 const std::string &AAnimal::getType(void) const
 {
 	return type;
-}
-
-void AAnimal::makeSound(void) const
-{
-	std::cout << "Roar!" << std::endl;
 }
