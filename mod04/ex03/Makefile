@@ -1,6 +1,6 @@
 NAME = polymorphism
 
-SRC = main.cpp 
+SRC = main.cpp
 SRC += AMateria.cpp Ice.cpp Cure.cpp
 SRC += Character.cpp MateriaSource.cpp
 
@@ -25,11 +25,11 @@ VALGRIND = valgrind -q --leak-check=full --show-leak-kinds=all \
 
 all: $(NAME)
 
-$(BUILD_DIR)/%.o: %.cpp
+$(BUILD_DIR)/%.o: %.cpp | $(BUILD_DIR)
 	@$(FORMAT)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
-$(NAME): $(BUILD_DIR) $(OBJ)
+$(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
 
 $(BUILD_DIR):
@@ -49,7 +49,7 @@ run: $(NAME)
 leaks: $(NAME)
 	$(VALGRIND) ./$(NAME)
 
-$(TESTER): $(BUILD_DIR) $(NAME) $(OBJ_TEST) #doctest.h
+$(TESTER): $(NAME) $(OBJ_TEST) #doctest.h
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJ_TEST) $(filter-out %main.o, $(OBJ))
 
 tests: $(TESTER)

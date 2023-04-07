@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cure.hpp                                           :+:      :+:    :+:   */
+/*   main_test.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 16:34:07 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/07 13:22:52 by eandre-f         ###   ########.fr       */
+/*   Created: 2023/04/05 15:50:45 by eandre-f          #+#    #+#             */
+/*   Updated: 2023/04/06 19:33:32 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CURE_HPP
-#define CURE_HPP
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_NO_POSIX_SIGNALS
 
 #include "AMateria.hpp"
-#include <iostream>
-
-class Cure : public AMateria
-{
-  public:
-	Cure(void);
-	Cure(const Cure &copy);
-	Cure &operator=(const Cure &copy);
-	~Cure(void);
-
-	AMateria *clone() const;
-	void      use(ICharacter &target);
-
-  private:
-};
-
-#endif /* CURE_HPP */
+#include "Character.hpp"
+#include "Cure.hpp"
+#include "Ice.hpp"
+#include "MateriaSource.hpp"
+#include "doctest.h"

@@ -6,16 +6,15 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:34:24 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/06 16:58:34 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:23:35 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ICE_HPP
 #define ICE_HPP
 
-#include <iostream>
-
 #include "AMateria.hpp"
+#include <iostream>
 
 class Ice : public AMateria
 {
@@ -26,6 +25,7 @@ class Ice : public AMateria
 	~Ice(void);
 
 	AMateria *clone() const;
+	void      use(ICharacter &target);
 
   private:
 };

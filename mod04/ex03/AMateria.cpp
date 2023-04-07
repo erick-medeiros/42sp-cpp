@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:33:46 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/06 16:40:29 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:21:22 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ std::string const &AMateria::getType() const
 
 void AMateria::use(ICharacter &target)
 {
-	(void) target;
+	std::cout << "Cannot use " << _type << " on " << target.getName()
+	          << std::endl;
 }
