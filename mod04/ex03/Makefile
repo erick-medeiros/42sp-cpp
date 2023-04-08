@@ -1,4 +1,4 @@
-NAME = polymorphism
+NAME = materia
 
 SRC = main.cpp
 SRC += AMateria.cpp Ice.cpp Cure.cpp

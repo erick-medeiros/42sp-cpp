@@ -1,4 +1,4 @@
-NAME = polymorphism
+NAME = animal
 
 SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp
 SRC += WrongAnimal.cpp WrongCat.cpp
