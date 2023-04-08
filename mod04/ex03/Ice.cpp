@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:34:24 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/07 13:16:14 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/08 10:11:59 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ Ice::~Ice(void)
 
 AMateria *Ice::clone() const
 {
+	std::cout << "Ice clone called" << std::endl;
 	return new Ice(*this);
 }
 

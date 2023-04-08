@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:34:07 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/07 13:15:36 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/08 10:12:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ Cure::~Cure(void)
 
 AMateria *Cure::clone() const
 {
+	std::cout << "Cure clone called" << std::endl;
 	return new Cure(*this);
 }
 

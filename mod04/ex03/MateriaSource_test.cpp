@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:38:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/07 17:30:20 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/08 10:34:56 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,47 @@ TEST_SUITE("Class MateriaSource")
 		freopen("/dev/tty", "w", stdout);
 	}
 
-	TEST_CASE("CreateMateria")
+	TEST_CASE("learnMateria")
+	{
+		freopen("/dev/null", "w", stdout);
+		{
+			MateriaSource ms;
+
+			for (int i = 0; i < SLOTS; i++)
+				ms.learnMateria(0);
+
+			AMateria *cm = ms.createMateria("ice");
+
+			freopen("/dev/tty", "w", stdout);
+
+			CHECK_FALSE(cm);
+
+			freopen("/dev/null", "w", stdout);
+
+			ms.learnMateria(new Ice());
+			ms.learnMateria(new Ice());
+			ms.learnMateria(new Ice());
+			ms.learnMateria(new Ice());
+			ms.learnMateria(new Cure());
+
+			AMateria *ice = ms.createMateria("ice");
+			AMateria *cure = ms.createMateria("cure");
+
+			freopen("/dev/tty", "w", stdout);
+
+			CHECK(ice);
+			CHECK_EQ(ice->getType(), "ice");
+			CHECK_FALSE(cure);
+			CHECK_FALSE(ms.getMateria(SLOTS));
+
+			freopen("/dev/null", "w", stdout);
+
+			delete ice;
+		}
+		freopen("/dev/tty", "w", stdout);
+	}
+
+	TEST_CASE("createMateria")
 	{
 		freopen("/dev/null", "w", stdout);
 		{

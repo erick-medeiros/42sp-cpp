@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:01:04 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/07 15:32:56 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/08 10:43:24 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,65 @@ TEST_SUITE("Class Character")
 		freopen("/dev/tty", "w", stdout);
 	}
 
-	TEST_CASE("Materia")
+	TEST_CASE("equip")
+	{
+		freopen("/dev/null", "w", stdout);
+		{
+			Character ch;
+
+			for (int i = 0; i < SLOTS; i++)
+				ch.equip(0);
+
+			freopen("/dev/tty", "w", stdout);
+
+			for (int i = 0; i < SLOTS; i++)
+				CHECK_FALSE(ch.getMateria(i));
+
+			freopen("/dev/null", "w", stdout);
+
+			ch.equip(new Ice());
+			ch.equip(new Ice());
+			ch.equip(new Ice());
+			ch.equip(new Ice());
+			ch.equip(new Cure());
+
+			freopen("/dev/tty", "w", stdout);
+
+			for (int i = 0; i < SLOTS; i++)
+			{
+				CHECK(ch.getMateria(i));
+				CHECK_EQ(ch.getMateria(i)->getType(), "ice");
+			}
+
+			CHECK_FALSE(ch.getMateria(SLOTS));
+
+			freopen("/dev/null", "w", stdout);
+		}
+		freopen("/dev/tty", "w", stdout);
+	}
+
+	TEST_CASE("unequip")
+	{
+		freopen("/dev/null", "w", stdout);
+		{
+			Character ch;
+
+			Ice *ice = new Ice[SLOTS];
+
+			for (int i = 0; i < SLOTS; i++)
+				ch.equip(&ice[i]);
+
+			ch.equip(new Cure());
+
+			for (int i = 0; i < SLOTS; i++)
+				ch.unequip(i);
+
+			delete[] ice;
+		}
+		freopen("/dev/tty", "w", stdout);
+	}
+
+	TEST_CASE("use Materia")
 	{
 		freopen("/dev/null", "w", stdout);
 		{
