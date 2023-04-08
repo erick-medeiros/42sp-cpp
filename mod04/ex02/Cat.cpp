@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:22:57 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/06 08:59:09 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/08 14:32:32 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ Cat &Cat::operator=(const Cat &copy)
 	if (this != &copy)
 	{
 		type = copy.type;
+		*brain = *copy.brain;
 	}
 	return *this;
 }
