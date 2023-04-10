@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:13:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/10 10:55:11 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:49:27 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Bureaucrat::Bureaucrat(void) : _name("undefined"), _grade(_lowestPossibleGrade)
 		std::cout << "Bureaucrat default constructor called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &copy)
+Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name)
 {
 	if (DEBUG)
 		std::cout << "Bureaucrat copy constructor called" << std::endl;
@@ -34,7 +34,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
 		std::cout << "Bureaucrat copy assignment operator called" << std::endl;
 	if (this != &copy)
 	{
-		(void) copy;
+		_grade = copy._grade;
 	}
 	return *this;
 }
@@ -107,9 +107,8 @@ void Bureaucrat::decrementGrade()
 	_setGrade(_grade + 1);
 }
 
-std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &b)
 {
-	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade()
-	   << ".";
+	os << b.getName() << ", bureaucrat grade " << b.getGrade() << ".";
 	return os;
 }
