@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:13:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/10 10:20:42 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:11:41 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,17 @@ class Bureaucrat
 	Bureaucrat(const std::string &name);
 	Bureaucrat(const std::string &name, const int &grade);
 
-	class GradeTooHighException;
-	class GradeTooLowException;
+	class GradeTooHighException : public std::exception
+	{
+	  public:
+		const char *what() const throw();
+	};
+
+	class GradeTooLowException : public std::exception
+	{
+	  public:
+		const char *what() const throw();
+	};
 
 	const std::string &getName() const;
 	const int         &getGrade() const;

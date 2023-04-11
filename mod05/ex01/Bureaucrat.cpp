@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:13:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/10 18:49:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:12:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,14 @@ Bureaucrat::Bureaucrat(const std::string &name, const int &grade) : _name(name)
 		          << std::endl;
 }
 
-class Bureaucrat::GradeTooHighException : public std::exception
+const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
-  public:
-	const char *what() const throw()
-	{
-		return "Grade too high!";
-	};
+	return "Grade too high!";
 };
 
-class Bureaucrat::GradeTooLowException : public std::exception
+const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
-  public:
-	const char *what() const throw()
-	{
-		return "Grade too low!";
-	};
+	return "Grade too low!";
 };
 
 const std::string &Bureaucrat::getName() const
