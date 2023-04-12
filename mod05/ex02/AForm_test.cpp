@@ -6,10 +6,11 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:48:20 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 15:19:17 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:17:46 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "AForm_test.hpp"
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include "doctest.h"
@@ -20,7 +21,7 @@ TEST_SUITE("Class Form")
 {
 	TEST_CASE("Constructor default")
 	{
-		AForm f;
+		AForm_test f;
 		CHECK_EQ(f.getName(), "undefined");
 		CHECK_EQ(f.getIsSigned(), false);
 		CHECK_EQ(f.getGradeToSign(), 10);
@@ -29,7 +30,7 @@ TEST_SUITE("Class Form")
 
 	TEST_CASE("Constructor by name, gradeToSign and gradeToExecute")
 	{
-		AForm f("form1", 42, 101);
+		AForm_test f("form1", 42, 101);
 		CHECK_EQ(f.getName(), "form1");
 		CHECK_EQ(f.getIsSigned(), false);
 		CHECK_EQ(f.getGradeToSign(), 42);
@@ -39,8 +40,8 @@ TEST_SUITE("Class Form")
 		{
 			try
 			{
-				AForm f("form", Bureaucrat::highestPossibleGrade - 1,
-				        Bureaucrat::lowestPossibleGrade);
+				AForm_test f("form", Bureaucrat::highestPossibleGrade - 1,
+				             Bureaucrat::lowestPossibleGrade);
 				FAIL("not throw");
 			}
 			catch (std::exception &e)
@@ -49,8 +50,8 @@ TEST_SUITE("Class Form")
 			}
 			try
 			{
-				AForm f("form", Bureaucrat::highestPossibleGrade,
-				        Bureaucrat::highestPossibleGrade - 1);
+				AForm_test f("form", Bureaucrat::highestPossibleGrade,
+				             Bureaucrat::highestPossibleGrade - 1);
 				FAIL("not throw");
 			}
 			catch (std::exception &e)
@@ -62,8 +63,8 @@ TEST_SUITE("Class Form")
 		{
 			try
 			{
-				AForm f("form", Bureaucrat::lowestPossibleGrade + 1,
-				        Bureaucrat::lowestPossibleGrade);
+				AForm_test f("form", Bureaucrat::lowestPossibleGrade + 1,
+				             Bureaucrat::lowestPossibleGrade);
 				FAIL("not throw");
 			}
 			catch (std::exception &e)
@@ -72,8 +73,8 @@ TEST_SUITE("Class Form")
 			}
 			try
 			{
-				AForm f("form", Bureaucrat::highestPossibleGrade,
-				        Bureaucrat::lowestPossibleGrade + 1);
+				AForm_test f("form", Bureaucrat::highestPossibleGrade,
+				             Bureaucrat::lowestPossibleGrade + 1);
 				FAIL("not throw");
 			}
 			catch (std::exception &e)
@@ -87,7 +88,7 @@ TEST_SUITE("Class Form")
 	{
 		std::ostringstream oss;
 		std::ostream       os(oss.rdbuf());
-		AForm              f("Name", 10, 100);
+		AForm_test         f("Name", 10, 100);
 
 		os << f;
 		CHECK_EQ(oss.str(), "Name form, not is signed, grade to sign is 10 and "
@@ -101,21 +102,21 @@ TEST_SUITE("Class Form")
 
 		SUBCASE("pass")
 		{
-			AForm      f("form", gradeToSign, gradeToExecute);
+			AForm_test f("form", gradeToSign, gradeToExecute);
 			Bureaucrat b("bob", gradeToSign - 1);
 			f.beSigned(b);
 			CHECK_EQ(f.getIsSigned(), true);
 		}
 		SUBCASE("pass limit")
 		{
-			AForm      f("form", gradeToSign, gradeToExecute);
+			AForm_test f("form", gradeToSign, gradeToExecute);
 			Bureaucrat b("bob", gradeToSign);
 			f.beSigned(b);
 			CHECK_EQ(f.getIsSigned(), true);
 		}
 		SUBCASE("not pass high")
 		{
-			AForm      f("form", gradeToSign, gradeToExecute);
+			AForm_test f("form", gradeToSign, gradeToExecute);
 			Bureaucrat b("bob", gradeToSign + 1);
 			try
 			{

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:00:05 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 15:18:33 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:21:54 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class AForm
 	~AForm(void);
 
 	AForm(const std::string &name, const int &gradeToSign,
-	      const int &gradeToExecute);
+	      const int &gradeToExecute, const std::string &target);
 
 	class GradeTooHighException : public std::exception
 	{
@@ -51,6 +51,13 @@ class AForm
 	const bool        &getIsSigned() const;
 	const int         &getGradeToSign() const;
 	const int         &getGradeToExecute() const;
+
+	const std::string &getTarget() const;
+
+	virtual void execute(Bureaucrat const &executor) = 0;
+
+  protected:
+	const std::string _target;
 
   private:
 	const std::string _name;

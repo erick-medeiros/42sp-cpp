@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:00:05 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 14:37:47 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:43:13 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include "Bureaucrat.hpp"
 
 AForm::AForm(void)
-    : _name("undefined"), _isSigned(false), _gradeToSign(10),
-      _gradeToExecute(100)
+    : _target("undefined"), _name("undefined"), _isSigned(false),
+      _gradeToSign(10), _gradeToExecute(100)
 {
 	if (DEBUG)
 		std::cout << "AForm default constructor called" << std::endl;
 }
 
 AForm::AForm(const AForm &copy)
-    : _name(copy.getName()), _isSigned(copy.getIsSigned()),
-      _gradeToSign(copy.getGradeToSign()),
+    : _target(copy.getTarget()), _name(copy.getName()),
+      _isSigned(copy.getIsSigned()), _gradeToSign(copy.getGradeToSign()),
       _gradeToExecute(copy.getGradeToExecute())
 {
 	if (DEBUG)
@@ -45,8 +45,8 @@ AForm::~AForm(void)
 }
 
 AForm::AForm(const std::string &name, const int &gradeToSign,
-             const int &gradeToExecute)
-    : _name(name), _isSigned(false), _gradeToSign(gradeToSign),
+             const int &gradeToExecute, const std::string &target)
+    : _target(target), _name(name), _isSigned(false), _gradeToSign(gradeToSign),
       _gradeToExecute(gradeToExecute)
 {
 	if (_gradeToSign < Bureaucrat::highestPossibleGrade)
@@ -60,8 +60,7 @@ AForm::AForm(const std::string &name, const int &gradeToSign,
 	if (DEBUG)
 	{
 		std::cout << "AForm constructor by name, gradeToSign and "
-		             "gradeToExecute "
-		             "called"
+		             "gradeToExecute called"
 		          << std::endl;
 	}
 }
@@ -114,4 +113,9 @@ std::ostream &operator<<(std::ostream &os, const AForm &f)
 	os << ", grade to sign is " << f.getGradeToSign();
 	os << " and grade to execute is " << f.getGradeToExecute();
 	return os;
+}
+
+const std::string &AForm::getTarget() const
+{
+	return _target;
 }
