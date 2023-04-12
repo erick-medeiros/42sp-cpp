@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:13:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 14:40:21 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:23:31 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,20 @@ void Bureaucrat::signForm(AForm &form)
 	catch (std::exception &e)
 	{
 		std::cout << getName() << " couldn't sign " << form.getName()
+		          << " because " << e.what() << std::endl;
+	}
+}
+
+void Bureaucrat::executeForm(AForm const &form)
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << getName() << " executed " << form.getName() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << getName() << " couldn't execute " << form.getName()
 		          << " because " << e.what() << std::endl;
 	}
 }

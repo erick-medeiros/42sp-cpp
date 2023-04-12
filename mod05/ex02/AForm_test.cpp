@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:48:20 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 18:57:20 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:28:11 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,7 @@ TEST_SUITE("Class Form")
 			}
 			catch (std::exception &e)
 			{
-				CHECK_EQ(std::string(e.what()), "grade too low to execute the "
-				                                "form!");
+				CHECK_EQ(std::string(e.what()), "grade too low to execute!");
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:17:46 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 17:24:27 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:15:46 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string &target)
 		          << std::endl;
 }
 
-void RobotomyRequestForm::execute(Bureaucrat const &executor)
+void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
 	(void) executor;
 }

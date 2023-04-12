@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:17:46 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 17:24:16 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:15:40 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class RobotomyRequestForm : public AForm
 
 	RobotomyRequestForm(const std::string &target);
 
-	void execute(Bureaucrat const &executor);
+	void execute(Bureaucrat const &executor) const;
 
   private:
 };

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:17:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 17:24:47 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:15:59 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ PresidentialPardonForm::PresidentialPardonForm(const std::string &target)
 		          << std::endl;
 }
 
-void PresidentialPardonForm::execute(Bureaucrat const &executor)
+void PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
 	(void) executor;
 }

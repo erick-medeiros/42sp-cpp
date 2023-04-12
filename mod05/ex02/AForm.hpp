@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:00:05 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 18:41:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:27:36 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ class AForm
 		const char *what() const throw();
 	};
 
-	class GradeTooLowToExecuteTheForm : public std::exception
+	class GradeTooLowToExecute : public std::exception
 	{
 	  public:
 		const char *what() const throw();
@@ -66,7 +66,7 @@ class AForm
 
 	const std::string &getTarget() const;
 
-	virtual void execute(Bureaucrat const &executor) = 0;
+	virtual void execute(Bureaucrat const &executor) const = 0;
 
   protected:
 	const std::string _target;

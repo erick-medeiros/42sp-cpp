@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _Bureaucrat_test.cpp                               :+:      :+:    :+:   */
+/*   Bureaucrat_test.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 08:20:30 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 17:19:41 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:28:30 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,5 +186,47 @@ TEST_CASE("signForm")
 		b.signForm(f);
 		std::cout.rdbuf(coutbuf);
 		CHECK_EQ(oss.str(), "bob couldn't sign form because grade too low!\n");
+	}
+}
+
+TEST_CASE("executeForm")
+{
+	std::streambuf    *coutbuf = std::cout.rdbuf();
+	std::ostringstream oss;
+
+	const int gradeToSign = 10;
+	const int gradeToExecute = 5;
+
+	SUBCASE("execute")
+	{
+		AForm_test f("form", gradeToSign, gradeToExecute);
+		Bureaucrat b("bob", gradeToExecute);
+		f.beSigned(b);
+		std::cout.rdbuf(oss.rdbuf());
+		b.executeForm(f);
+		std::cout.rdbuf(coutbuf);
+		CHECK_EQ(oss.str(), "bob executed form\n");
+	}
+	SUBCASE("not signed")
+	{
+		AForm_test f("form", gradeToSign, gradeToExecute);
+		Bureaucrat b("bob", gradeToExecute);
+		// f.beSigned(b);
+		std::cout.rdbuf(oss.rdbuf());
+		b.executeForm(f);
+		std::cout.rdbuf(coutbuf);
+		CHECK_EQ(oss.str(), "bob couldn't execute form because form is not "
+		                    "signed!\n");
+	}
+	SUBCASE("not execute")
+	{
+		AForm_test f("form", gradeToSign, gradeToExecute);
+		Bureaucrat b("bob", gradeToExecute + 1);
+		f.beSigned(b);
+		std::cout.rdbuf(oss.rdbuf());
+		b.executeForm(f);
+		std::cout.rdbuf(coutbuf);
+		CHECK_EQ(oss.str(), "bob couldn't execute form because grade too low "
+		                    "to execute!\n");
 	}
 }

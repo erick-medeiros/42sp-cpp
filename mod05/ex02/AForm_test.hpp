@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 17:17:13 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 18:21:10 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:15:21 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class AForm_test : public AForm
 	    : AForm(name, gradeToSign, gradeToExecute, "target")
 	{
 	}
-	void execute(Bureaucrat const &b)
+	void execute(Bureaucrat const &b) const
 	{
 		AForm::execute(b);
 	}

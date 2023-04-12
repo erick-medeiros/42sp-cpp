@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:13:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 14:40:17 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:14:38 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ class Bureaucrat
 	void incrementGrade();
 	void decrementGrade();
 
-	void signForm(AForm &AForm);
+	void signForm(AForm &form);
+	void executeForm(AForm const &form);
 
 	static const int highestPossibleGrade;
 	static const int lowestPossibleGrade;
