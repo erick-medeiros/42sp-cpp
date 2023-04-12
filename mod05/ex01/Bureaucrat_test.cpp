@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 08:20:30 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/10 11:05:41 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:29:17 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ TEST_SUITE("Class Bureaucrat")
 			}
 			catch (std::exception &e)
 			{
-				CHECK_EQ(std::string(e.what()), "Grade too high!");
+				CHECK_EQ(std::string(e.what()), "grade too high!");
 			}
 		}
 	}
@@ -146,8 +146,45 @@ TEST_SUITE("Class Bureaucrat")
 			}
 			catch (std::exception &e)
 			{
-				CHECK_EQ(std::string(e.what()), "Grade too low!");
+				CHECK_EQ(std::string(e.what()), "grade too low!");
 			}
 		}
+	}
+}
+
+TEST_CASE("signForm")
+{
+	std::streambuf    *coutbuf = std::cout.rdbuf();
+	std::ostringstream oss;
+	SUBCASE("pass")
+	{
+		Form       f("form", 10, 15);
+		Bureaucrat b("bob", 5);
+
+		std::cout.rdbuf(oss.rdbuf());
+		b.signForm(f);
+		std::cout.rdbuf(coutbuf);
+		CHECK_EQ(oss.str(), "bob signed form\n");
+	}
+	SUBCASE("not pass")
+	{
+		Form       f("form", 10, 15);
+		Bureaucrat b("bob", 13);
+
+		std::cout.rdbuf(oss.rdbuf());
+		b.signForm(f);
+		std::cout.rdbuf(coutbuf);
+		CHECK_EQ(oss.str(), "bob couldn't sign form because grade was not "
+		                    "enough.\n");
+	}
+	SUBCASE("not pass throw")
+	{
+		Form       f("form", 10, 15);
+		Bureaucrat b("bob", 17);
+
+		std::cout.rdbuf(oss.rdbuf());
+		b.signForm(f);
+		std::cout.rdbuf(coutbuf);
+		CHECK_EQ(oss.str(), "bob couldn't sign form because grade too low!\n");
 	}
 }
