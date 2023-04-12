@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:00:05 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 09:52:48 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:18:33 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@
 
 class Bureaucrat;
 
-class Form
+class AForm
 {
   public:
-	Form(void);
-	Form(const Form &copy);
-	Form &operator=(const Form &copy);
-	~Form(void);
+	AForm(void);
+	AForm(const AForm &copy);
+	AForm &operator=(const AForm &copy);
+	~AForm(void);
 
-	Form(const std::string &name, const int &gradeToSign,
-	     const int &gradeToExecute);
+	AForm(const std::string &name, const int &gradeToSign,
+	      const int &gradeToExecute);
 
 	class GradeTooHighException : public std::exception
 	{
@@ -59,6 +59,6 @@ class Form
 	const int         _gradeToExecute;
 };
 
-std::ostream &operator<<(std::ostream &, const Form &);
+std::ostream &operator<<(std::ostream &, const AForm &);
 
-#endif /* FORM_HPP */
+#endif /* AFORM_HPP */

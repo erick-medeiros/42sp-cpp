@@ -6,14 +6,14 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:13:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 09:53:21 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:40:17 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
-#include "Form.hpp"
+#include "AForm.hpp"
 #include <exception>
 #include <iostream>
 #include <string>
@@ -22,7 +22,7 @@
 #define DEBUG 0
 #endif
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -53,7 +53,7 @@ class Bureaucrat
 	void incrementGrade();
 	void decrementGrade();
 
-	void signForm(Form &form);
+	void signForm(AForm &AForm);
 
 	static const int highestPossibleGrade;
 	static const int lowestPossibleGrade;

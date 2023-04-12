@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 08:20:30 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 12:19:27 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:19:50 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ TEST_CASE("signForm")
 	std::ostringstream oss;
 	SUBCASE("pass")
 	{
-		Form       f("form", 10, 15);
+		AForm      f("form", 10, 15);
 		Bureaucrat b("bob", 5);
 
 		std::cout.rdbuf(oss.rdbuf());
@@ -168,7 +168,7 @@ TEST_CASE("signForm")
 	}
 	SUBCASE("not pass throw")
 	{
-		Form       f("form", 10, 15);
+		AForm      f("form", 10, 15);
 		Bureaucrat b("bob", 13);
 
 		std::cout.rdbuf(oss.rdbuf());
@@ -178,7 +178,7 @@ TEST_CASE("signForm")
 	}
 	SUBCASE("not pass throw")
 	{
-		Form       f("form", 10, 15);
+		AForm      f("form", 10, 15);
 		Bureaucrat b("bob", 17);
 
 		std::cout.rdbuf(oss.rdbuf());

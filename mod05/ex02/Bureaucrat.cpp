@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:13:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 12:18:57 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:40:21 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void Bureaucrat::decrementGrade()
 	_setGrade(_grade + 1);
 }
 
-void Bureaucrat::signForm(Form &form)
+void Bureaucrat::signForm(AForm &form)
 {
 	try
 	{

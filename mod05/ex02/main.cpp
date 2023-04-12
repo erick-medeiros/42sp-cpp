@@ -6,18 +6,18 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:08:58 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 10:27:52 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:40:01 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
 
 int main()
 {
 	std::cout << "=== output ===" << std::endl;
 	{
-		Form       f("Sign", 10, 15);
+		AForm      f("Sign", 10, 15);
 		Bureaucrat b("Bob", 5);
 		std::cout << f << std::endl;
 		f.beSigned(b);
@@ -28,7 +28,7 @@ int main()
 	{
 		try
 		{
-			Form f("Sign", Bureaucrat::highestPossibleGrade - 1, 10);
+			AForm f("Sign", Bureaucrat::highestPossibleGrade - 1, 10);
 		}
 		catch (std::exception &e)
 		{
@@ -39,7 +39,7 @@ int main()
 	{
 		try
 		{
-			Form f("Sign", 1, Bureaucrat::lowestPossibleGrade + 1);
+			AForm f("Sign", 1, Bureaucrat::lowestPossibleGrade + 1);
 		}
 		catch (std::exception &e)
 		{
@@ -48,9 +48,9 @@ int main()
 	}
 	std::cout << "=== signForm ===" << std::endl;
 	{
-		Form       f1("Sign", 10, 20);
-		Form       f2(f1);
-		Form       f3(f1);
+		AForm      f1("Sign", 10, 20);
+		AForm      f2(f1);
+		AForm      f3(f1);
 		Bureaucrat b1("linus", 5);
 		Bureaucrat b2("sam", 15);
 		Bureaucrat b3("bob", 25);

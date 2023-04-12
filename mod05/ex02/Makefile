@@ -1,6 +1,9 @@
 NAME = form
 
-SRC = main.cpp Bureaucrat.cpp Form.cpp
+SRC = main.cpp Bureaucrat.cpp AForm.cpp
+SRC += ShrubberyCreationForm.cpp
+SRC += RobotomyRequestForm.cpp
+SRC += PresidentialPardonForm.cpp
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g -I../../lib/
