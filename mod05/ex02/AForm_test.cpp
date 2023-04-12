@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:48:20 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 17:17:46 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:57:20 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,51 @@ TEST_SUITE("Class Form")
 			catch (std::exception &e)
 			{
 				CHECK_EQ(std::string(e.what()), "grade too low!");
+			}
+		}
+	}
+
+	TEST_CASE("execute")
+	{
+		const int gradeToSign = 10;
+		const int gradeToExecute = 5;
+
+		SUBCASE("success")
+		{
+			AForm_test f("form", gradeToSign, gradeToExecute);
+			Bureaucrat b("bob", gradeToExecute);
+			f.beSigned(b);
+			f.execute(b);
+		}
+		SUBCASE("not signed")
+		{
+			AForm_test f("form", gradeToSign, gradeToExecute);
+			Bureaucrat b("bob", gradeToExecute + 1);
+			// f.beSigned(b);
+			try
+			{
+				f.execute(b);
+				FAIL("not throw");
+			}
+			catch (std::exception &e)
+			{
+				CHECK_EQ(std::string(e.what()), "form is not signed!");
+			}
+		}
+		SUBCASE("grade too low to execute")
+		{
+			AForm_test f("form", gradeToSign, gradeToExecute);
+			Bureaucrat b("bob", gradeToExecute + 1);
+			f.beSigned(b);
+			try
+			{
+				f.execute(b);
+				FAIL("not throw");
+			}
+			catch (std::exception &e)
+			{
+				CHECK_EQ(std::string(e.what()), "grade too low to execute the "
+				                                "form!");
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:00:05 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 17:21:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:41:54 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ class AForm
 	};
 
 	class GradeTooLowException : public std::exception
+	{
+	  public:
+		const char *what() const throw();
+	};
+
+	class FormIsNotSignedException : public std::exception
+	{
+	  public:
+		const char *what() const throw();
+	};
+
+	class GradeTooLowToExecuteTheForm : public std::exception
 	{
 	  public:
 		const char *what() const throw();
