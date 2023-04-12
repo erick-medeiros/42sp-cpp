@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:00:05 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 10:27:29 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 12:10:42 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,9 @@ const char *Form::GradeTooLowException::what() const throw()
 
 void Form::beSigned(const Bureaucrat &b)
 {
-	const int &grade = b.getGrade();
-	if (grade <= _gradeToSign)
+	if (b.getGrade() <= _gradeToSign)
 		_isSigned = true;
-	else if (grade >= _gradeToExecute)
+	else
 		throw GradeTooLowException();
 }
 

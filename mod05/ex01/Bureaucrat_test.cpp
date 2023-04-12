@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 08:20:30 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 10:29:17 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 12:19:27 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ TEST_CASE("signForm")
 		std::cout.rdbuf(coutbuf);
 		CHECK_EQ(oss.str(), "bob signed form\n");
 	}
-	SUBCASE("not pass")
+	SUBCASE("not pass throw")
 	{
 		Form       f("form", 10, 15);
 		Bureaucrat b("bob", 13);
@@ -174,8 +174,7 @@ TEST_CASE("signForm")
 		std::cout.rdbuf(oss.rdbuf());
 		b.signForm(f);
 		std::cout.rdbuf(coutbuf);
-		CHECK_EQ(oss.str(), "bob couldn't sign form because grade was not "
-		                    "enough.\n");
+		CHECK_EQ(oss.str(), "bob couldn't sign form because grade too low!\n");
 	}
 	SUBCASE("not pass throw")
 	{

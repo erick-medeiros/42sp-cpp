@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:48:20 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 10:15:41 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 12:09:51 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,20 +117,6 @@ TEST_SUITE("Class Form")
 		{
 			Form       f("form", gradeToSign, gradeToExecute);
 			Bureaucrat b("bob", gradeToSign + 1);
-			f.beSigned(b);
-			CHECK_EQ(f.getIsSigned(), false);
-		}
-		SUBCASE("not pass low")
-		{
-			Form       f("form", gradeToSign, gradeToExecute);
-			Bureaucrat b("bob", gradeToExecute - 1);
-			f.beSigned(b);
-			CHECK_EQ(f.getIsSigned(), false);
-		}
-		SUBCASE("throw low grade")
-		{
-			Form       f("form", gradeToSign, gradeToExecute);
-			Bureaucrat b("bob", gradeToExecute);
 			try
 			{
 				f.beSigned(b);

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:13:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 10:29:34 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 12:18:57 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,10 @@ void Bureaucrat::decrementGrade()
 
 void Bureaucrat::signForm(Form &form)
 {
-	std::string bucause;
 	try
 	{
 		form.beSigned(*this);
-		if (form.getIsSigned())
-			std::cout << getName() << " signed " << form.getName() << std::endl;
-		else
-			std::cout << getName() << " couldn't sign " << form.getName()
-			          << " because "
-			          << "grade was not enough." << std::endl;
+		std::cout << getName() << " signed " << form.getName() << std::endl;
 	}
 	catch (std::exception &e)
 	{
