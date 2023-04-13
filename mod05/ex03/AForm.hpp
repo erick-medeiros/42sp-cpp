@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:00:05 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 19:27:36 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:01:28 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class AForm
 	AForm(void);
 	AForm(const AForm &copy);
 	AForm &operator=(const AForm &copy);
-	~AForm(void);
+	virtual ~AForm(void);
 
 	AForm(const std::string &name, const int &gradeToSign,
 	      const int &gradeToExecute, const std::string &target);
