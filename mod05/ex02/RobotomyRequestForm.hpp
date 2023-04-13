@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:17:46 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 19:15:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/13 12:18:18 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define ROBOTOMYREQUESTFORM_HPP
 
 #include "AForm.hpp"
+#include <cstdlib>
 #include <iostream>
 
 #ifndef DEBUG

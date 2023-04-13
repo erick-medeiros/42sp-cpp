@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:17:37 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 19:15:31 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/13 12:01:44 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,19 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target)
 
 void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-	(void) executor;
+	AForm::execute(executor);
+	std::string   filename = getTarget() + "_shrubbery";
+	std::ofstream output;
+	output.open(filename.c_str());
+	if (output.is_open())
+	{
+		output << ASCII_TREE;
+		if (output.bad())
+			std::cout << "Failed to write to file" << std::endl;
+		output.close();
+	}
+	else
+	{
+		std::cout << "Could not open file " << filename << std::endl;
+	}
 }

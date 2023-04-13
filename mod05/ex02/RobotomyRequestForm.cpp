@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:17:46 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 19:15:46 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:10:30 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,23 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string &target)
 
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-	(void) executor;
+	AForm::execute(executor);
+
+	std::cout << "Buzzzzzzzzzzzzzzzzzzzz...." << std::endl;
+	std::cout << "Grrrrrrrrrrrrrrrrrrrrrrrrrrr..." << std::endl;
+	std::cout << "VRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR..." << std::endl;
+
+	srand(time(NULL)); // seed
+	const short random = rand() % 101;
+
+	if (random <= 50)
+	{
+		std::cout << getTarget()
+		          << " has been robotomized successfully 50\% of the time"
+		          << std::endl;
+	}
+	else
+	{
+		std::cout << "The robotomy failed " << getTarget() << std::endl;
+	}
 }

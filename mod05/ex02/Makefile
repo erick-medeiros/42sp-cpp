@@ -37,7 +37,7 @@ $(BUILD_DIR):
 	@mkdir -p $@
 
 clean:
-	$(RM) $(BUILD_DIR)/*.o $(BUILD_DIR)/*.d
+	$(RM) $(BUILD_DIR)/*.o $(BUILD_DIR)/*.d *_shrubbery
 
 fclean: clean
 	$(RM) *.out $(NAME)

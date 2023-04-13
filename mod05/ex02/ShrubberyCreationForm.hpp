@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:17:37 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 19:15:34 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/12 20:18:54 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define SHRUBBERYCREATIONFORM_HPP
 
 #include "AForm.hpp"
+#include <fstream>
 #include <iostream>
 #include <string>
 
@@ -23,6 +24,23 @@
 
 #define SCF_SIGN 145
 #define SCF_EXEC 137
+
+#define ASCII_TREE \
+	"\n\
+             # #### #### \n\
+           ### \\/#|### |/#### \n\
+          ##\\/\\/# \\||/##/_/##/_# \n\
+        ###  \\/###|/ \\/ # ### \n\
+      ##_\\_\\/#\\_\\# | #/###_/_#### \n\
+     ## #### # \\ #| /  #### ##/## \n\
+      __#_--###`  |{,###---###-~ \n\
+                \\ }{ \n\
+                 }}{ \n\
+                 }}{ \n\
+            ejm  {{} \n\
+           , -=-~{ .-^- _ \n\
+                 `} \n\
+                  { \n\n"
 
 class ShrubberyCreationForm : public AForm
 {

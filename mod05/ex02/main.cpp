@@ -6,58 +6,99 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:08:58 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/12 17:38:23 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:08:40 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AForm.hpp"
 #include "AForm_test.hpp"
 #include "Bureaucrat.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include <fstream>
 
 int main()
 {
-	std::cout << "=== output ===" << std::endl;
+	std::cout << "=== ShrubberyCreationForm ===" << std::endl;
 	{
-		AForm_test f("Sign", 10, 15);
-		Bureaucrat b("Bob", 5);
-		std::cout << f << std::endl;
-		f.beSigned(b);
-		std::cout << b << std::endl;
-		std::cout << f << std::endl;
+		std::cout << std::endl << "=== sign error ===" << std::endl;
+		{
+			ShrubberyCreationForm f("home");
+			Bureaucrat            b("bob", SCF_SIGN + 1);
+			b.signForm(f);
+		}
+		std::cout << std::endl << "=== executor error ===" << std::endl;
+		{
+			ShrubberyCreationForm f("home");
+			Bureaucrat            b("bob", SCF_EXEC + 1);
+			b.signForm(f);
+			b.executeForm(f);
+		}
+		std::cout << std::endl << "=== executor ===" << std::endl;
+		{
+			ShrubberyCreationForm f("home");
+			Bureaucrat            b("bob", 1);
+			b.signForm(f);
+			b.executeForm(f);
+			std::string filename = f.getTarget() + "_shrubbery";
+			std::cout << "Open file: " << filename << std::endl;
+			std::ifstream file(filename.c_str());
+			if (!file.is_open())
+			{
+				std::cout << "File open failed" << std::endl;
+				return 1;
+			}
+			std::string line;
+			while (std::getline(file, line))
+				std::cout << line << std::endl;
+		}
 	}
-	std::cout << "=== exception GradeTooHighException ===" << std::endl;
+	std::cout << "=== RobotomyRequestForm ===" << std::endl;
 	{
-		try
+		std::cout << std::endl << "=== sign error ===" << std::endl;
 		{
-			AForm_test f("Sign", Bureaucrat::highestPossibleGrade - 1, 10);
+			RobotomyRequestForm f("home");
+			Bureaucrat          b("bob", RRF_SIGN + 1);
+			b.signForm(f);
 		}
-		catch (std::exception &e)
+		std::cout << std::endl << "=== executor error ===" << std::endl;
 		{
-			std::cout << "form: error: " << e.what() << std::endl;
+			RobotomyRequestForm f("home");
+			Bureaucrat          b("bob", RRF_EXEC + 1);
+			b.signForm(f);
+			b.executeForm(f);
+		}
+		std::cout << std::endl << "=== executor ===" << std::endl;
+		{
+			RobotomyRequestForm f("home");
+			Bureaucrat          b("bob", 1);
+			b.signForm(f);
+			b.executeForm(f);
 		}
 	}
-	std::cout << "=== exception GradeTooLowException ===" << std::endl;
+	std::cout << "=== PresidentialPardonForm ===" << std::endl;
 	{
-		try
+		std::cout << std::endl << "=== sign error ===" << std::endl;
 		{
-			AForm_test f("Sign", 1, Bureaucrat::lowestPossibleGrade + 1);
+			PresidentialPardonForm f("home");
+			Bureaucrat             b("bob", PPF_SIGN + 1);
+			b.signForm(f);
 		}
-		catch (std::exception &e)
+		std::cout << std::endl << "=== executor error ===" << std::endl;
 		{
-			std::cout << "form: error: " << e.what() << std::endl;
+			PresidentialPardonForm f("home");
+			Bureaucrat             b("bob", PPF_EXEC + 1);
+			b.signForm(f);
+			b.executeForm(f);
 		}
-	}
-	std::cout << "=== signForm ===" << std::endl;
-	{
-		AForm_test f1("Sign", 10, 20);
-		AForm_test f2(f1);
-		AForm_test f3(f1);
-		Bureaucrat b1("linus", 5);
-		Bureaucrat b2("sam", 15);
-		Bureaucrat b3("bob", 25);
-		b1.signForm(f1);
-		b2.signForm(f2);
-		b3.signForm(f3);
+		std::cout << std::endl << "=== executor ===" << std::endl;
+		{
+			PresidentialPardonForm f("home");
+			Bureaucrat             b("bob", 1);
+			b.signForm(f);
+			b.executeForm(f);
+		}
 	}
 	return 0;
 }
