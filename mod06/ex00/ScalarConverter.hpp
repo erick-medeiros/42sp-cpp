@@ -6,14 +6,22 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 18:34:02 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/13 19:41:14 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/14 20:28:08 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCALARCONVERTER_HPP
 #define SCALARCONVERTER_HPP
 
+#include <cctype>
+#include <cerrno>
+#include <cfloat>
+#include <climits>
+#include <cmath>
+#include <cstdlib>
+#include <iomanip>
 #include <iostream>
+#include <string>
 
 #ifndef DEBUG
 #define DEBUG 0
@@ -22,14 +30,26 @@
 class ScalarConverter
 {
   public:
-	ScalarConverter(void);
-	ScalarConverter(const ScalarConverter &copy);
-	ScalarConverter &operator=(const ScalarConverter &copy);
-	~ScalarConverter(void);
-
 	static void convert(std::string data);
 
   private:
+	static const std::string _detectSpecialType(const std::string &data);
+	static const std::string _detectLiteralType(const std::string &data);
+
+	static void _convertChar(const std::string &data);
+	static void _convertInt(const std::string &data);
+	static void _convertFloat(const std::string &data);
+	static void _convertDouble(const std::string &data);
+	static void _convertSpecial(const std::string &data);
+
+	static void _reset(void);
+	static void _impossible(void);
+	static void _print(void);
+
+	static char   _char;
+	static int    _int;
+	static float  _float;
+	static double _double;
 };
 
 #endif /* SCALARCONVERTER_HPP */

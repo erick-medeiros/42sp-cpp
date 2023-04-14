@@ -10,10 +10,6 @@ BUILD_DIR = build
 OBJ = $(addprefix $(BUILD_DIR)/, $(SRC:.cpp=.o))
 DEP = $(addprefix $(BUILD_DIR)/, $(SRC:.cpp=.d))
 
-TESTER = tests.out
-SRC_TEST = $(wildcard $(SRC:.cpp=_test.cpp))
-OBJ_TEST = $(addprefix $(BUILD_DIR)/, $(SRC_TEST:.cpp=.o))
-
 FORMAT = which clang-format >/dev/null 2>&1 \
 && echo $^ | tr ' ' '\n' | grep -v 'doctest.h' | tr '\n' ' ' \
 | xargs clang-format -i || true
@@ -45,13 +41,11 @@ run: $(NAME)
 	./$(NAME)
 
 leaks: $(NAME)
-	$(VALGRIND) ./$(NAME)
+	$(VALGRIND) ./$(NAME) 1
 
-$(TESTER): $(NAME) $(OBJ_TEST) #doctest.h
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJ_TEST) $(filter-out %main.o, $(OBJ))
-
-tests: $(TESTER)
-	@$(VALGRIND) ./$(TESTER)
+tests: $(NAME)
+	@chmod +x tests.sh
+	./tests.sh
 
 retests: fclean tests
 
