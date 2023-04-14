@@ -49,14 +49,9 @@ tests: $(NAME)
 
 retests: fclean tests
 
-debug: CXXFLAGS += -DDEBUG=1
-debug: all
-
-redebug: fclean debug
-
 doctest.h:
 	@curl -s https://raw.githubusercontent.com/erick-medeiros/42sp-cpp/main/lib/doctest.h > doctest.h
 
 -include $(DEP)
 
-.PHONY: all clean fclean re run leaks tests retests debug redebug
+.PHONY: all clean fclean re run leaks tests retests

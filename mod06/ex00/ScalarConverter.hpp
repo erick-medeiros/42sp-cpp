@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 18:34:02 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/14 20:28:08 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/14 20:38:24 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-
-#ifndef DEBUG
-#define DEBUG 0
-#endif
 
 class ScalarConverter
 {
