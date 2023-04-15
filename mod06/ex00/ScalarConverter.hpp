@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 18:34:02 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/14 20:38:24 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:39:12 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 #include <string>
 
 class ScalarConverter
@@ -36,9 +37,7 @@ class ScalarConverter
 	static void _convertInt(const std::string &data);
 	static void _convertFloat(const std::string &data);
 	static void _convertDouble(const std::string &data);
-	static void _convertSpecial(const std::string &data);
 
-	static void _reset(void);
 	static void _impossible(void);
 	static void _print(void);
 

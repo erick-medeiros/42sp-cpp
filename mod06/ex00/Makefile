@@ -38,7 +38,7 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	./$(NAME)
+	./$(NAME) 1
 
 leaks: $(NAME)
 	$(VALGRIND) ./$(NAME) 1

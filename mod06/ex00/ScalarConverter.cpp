@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 18:34:02 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/14 20:29:46 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:39:14 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,27 @@ double ScalarConverter::_double = 0;
 
 void ScalarConverter::convert(std::string data)
 {
-	if (_detectSpecialType(data) == "special")
-		_convertSpecial(data);
+	const std::string &type = _detectSpecialType(data) == "" ?
+	                              _detectLiteralType(data) :
+	                              _detectSpecialType(data);
+	if (type == "char")
+		_convertChar(data);
+	else if (type == "int")
+		_convertInt(data);
+	else if (type == "float")
+		_convertFloat(data);
+	else if (type == "double")
+		_convertDouble(data);
 	else
-	{
-		const std::string &type = _detectLiteralType(data);
-		if (type == "char")
-			_convertChar(data);
-		else if (type == "int")
-			_convertInt(data);
-		else if (type == "float")
-			_convertFloat(data);
-		else if (type == "double")
-			_convertDouble(data);
-		else
-			_impossible();
-	}
+		_impossible();
 }
 
-void ScalarConverter::_reset(void)
+void ScalarConverter::_impossible(void)
 {
 	_char = 0;
 	_int = 0;
 	_float = 0;
 	_double = 0;
-}
-
-void ScalarConverter::_impossible(void)
-{
-	_reset();
 	std::cout << "char: impossible" << std::endl;
 	std::cout << "int: impossible" << std::endl;
 	std::cout << "float: impossible" << std::endl;
@@ -61,7 +53,11 @@ void ScalarConverter::_print(void)
 	std::isprint(_char) ? std::cout << "'" << _char << "'" :
 	                      std::cout << "Non displayable";
 	std::cout << std::endl;
-	std::cout << "int: " << _int << std::endl;
+	if (std::isnan(_float) || std::isnan(_double) || std::isinf(_float) ||
+	    std::isinf(_double))
+		std::cout << "int: impossible" << std::endl;
+	else
+		std::cout << "int: " << _int << std::endl;
 	if (_float - std::floor(_float))
 		std::cout << "float: " << _float << "f" << std::endl;
 	else
@@ -75,11 +71,13 @@ void ScalarConverter::_print(void)
 const std::string ScalarConverter::_detectSpecialType(const std::string &data)
 {
 	const int         amount = 8;
-	const std::string types[amount] = {"inff", "+inff", "-inff", "inf",
-	                                   "+inf", "-inf",  "nan",   "nanf"};
+	const std::string floatTypes[amount] = {"inff", "+inff", "-inff", "nanf"};
+	const std::string doubleTypes[amount] = {"inf", "+inf", "-inf", "nan"};
 	for (int i = 0; i < amount; ++i)
-		if (types[i] == data)
-			return "special";
+		if (floatTypes[i] == data)
+			return "float";
+		else if (doubleTypes[i] == data)
+			return "double";
 	return "";
 }
 
@@ -154,48 +152,48 @@ void ScalarConverter::_convertInt(const std::string &data)
 
 void ScalarConverter::_convertFloat(const std::string &data)
 {
-	double _value = std::atof(data.c_str());
-	if (_value > FLT_MAX || _value < FLT_MIN)
-		_impossible();
+	if (data == "inff" || data == "+inff")
+		_float = std::numeric_limits<float>::infinity();
+	else if (data == "-inff")
+		_float = -std::numeric_limits<float>::infinity();
+	else if (data == "nanf")
+		_float = std::numeric_limits<float>::quiet_NaN();
 	else
 	{
+		double _value = std::atof(data.c_str());
+		if (_value > FLT_MAX || _value < FLT_MIN)
+		{
+			_impossible();
+			return;
+		}
 		_float = static_cast<float>(_value);
-		_char = static_cast<char>(_float);
-		_int = static_cast<int>(_float);
-		_double = static_cast<double>(_float);
-		_print();
 	}
+	_char = static_cast<char>(_float);
+	_int = static_cast<int>(_float);
+	_double = static_cast<double>(_float);
+	_print();
 }
 
 void ScalarConverter::_convertDouble(const std::string &data)
 {
-	long double _value = std::strtold(data.c_str(), NULL);
-	if (_value > DBL_MAX || _value < -DBL_MAX)
-		_impossible();
+	if (data == "inf" || data == "+inf")
+		_double = std::numeric_limits<double>::infinity();
+	else if (data == "-inf")
+		_double = -std::numeric_limits<double>::infinity();
+	else if (data == "nan")
+		_double = std::numeric_limits<double>::quiet_NaN();
 	else
 	{
+		long double _value = std::strtold(data.c_str(), NULL);
+		if (_value > DBL_MAX || _value < -DBL_MAX)
+		{
+			_impossible();
+			return;
+		}
 		_double = static_cast<double>(_value);
-		_char = static_cast<char>(_double);
-		_int = static_cast<int>(_double);
-		_float = static_cast<float>(_double);
-		_print();
 	}
-}
-
-void ScalarConverter::_convertSpecial(const std::string &data)
-{
-	const int         amount = 4;
-	const std::string floatTypes[amount] = {"+inff", "inff", "-inff", "nanf"};
-	const std::string doubleTypes[amount] = {"+inf", "inf", "-inf", "nan"};
-
-	_reset();
-	int index = 0;
-	while (data != floatTypes[index] && data != doubleTypes[index])
-		index++;
-	if (index == 0)
-		index++;
-	std::cout << "char: impossible" << std::endl;
-	std::cout << "int: impossible" << std::endl;
-	std::cout << "float: " << floatTypes[index] << std::endl;
-	std::cout << "double: " << doubleTypes[index] << std::endl;
+	_char = static_cast<char>(_double);
+	_int = static_cast<int>(_double);
+	_float = static_cast<float>(_double);
+	_print();
 }
