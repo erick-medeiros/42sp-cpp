@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 00:00:56 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/15 00:51:16 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/15 17:34:16 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ int main()
 	Base *base = generate();
 	identify(base);
 	identify(*base);
+	delete base;
 	return 0;
 }
