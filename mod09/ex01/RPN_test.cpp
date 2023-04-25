@@ -1,48 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RPN.cpp                                            :+:      :+:    :+:   */
+/*   RPN_test.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:25:34 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 19:29:15 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:25:34 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
+#include "doctest.h"
 
-RPN::RPN(void)
+TEST_SUITE("Class RPN")
 {
-	if (DEBUG)
-		std::cout << "RPN default constructor called" << std::endl;
-}
-
-RPN::RPN(const RPN &copy)
-{
-	if (DEBUG)
-		std::cout << "RPN copy constructor called" << std::endl;
-	*this = copy;
-}
-
-RPN &RPN::operator=(const RPN &copy)
-{
-	if (DEBUG)
-		std::cout << "RPN copy assignment operator called" << std::endl;
-	if (this != &copy)
+	TEST_CASE("Orthodox Canonical Form")
 	{
-		_stack = copy._stack;
+		RPN obj1;
+		RPN obj2(obj1);
+		RPN obj3 = obj2;
 	}
-	return *this;
-}
-
-RPN::~RPN(void)
-{
-	if (DEBUG)
-		std::cout << "RPN destructor called" << std::endl;
-}
-
-void RPN::process(char *expression)
-{
-	(void) expression;
 }
