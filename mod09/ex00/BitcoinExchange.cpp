@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 18:18:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:27:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void BitcoinExchange::_validateDate(std::string const &date) const
 
 void BitcoinExchange::_validateMinDate(std::string const &date) const
 {
+	if (_database.empty())
+		return;
 	std::tm     find_tm = {};
 	std::tm     min_tm = {};
 	const char *min_date = _database.begin()->first.c_str();
@@ -205,6 +207,8 @@ void BitcoinExchange::openDatabase(std::string const &filename)
 
 void BitcoinExchange::openInput(std::string const &filename)
 {
+	if (_database.empty())
+		throw std::runtime_error("Error: Database empty");
 	std::ifstream input(filename.c_str());
 	_validateInputFile(input, filename);
 
