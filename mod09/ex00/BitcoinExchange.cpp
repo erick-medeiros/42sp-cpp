@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 18:27:29 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:45:52 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void BitcoinExchange::_validateInputFile(std::ifstream const &file,
 
 void BitcoinExchange::_validateDate(std::string const &date) const
 {
-	std::tm     tm = {};
-	const char *format = "%Y-%m-%d";
-	bool        is_valid = true;
+	std::tm            tm = {};
+	static const char *format = "%Y-%m-%d";
+	bool               is_valid = true;
 
 	if (!strptime(date.c_str(), format, &tm))
 		is_valid = false;
@@ -85,7 +85,7 @@ void BitcoinExchange::_validateMinDate(std::string const &date) const
 	std::tm     find_tm = {};
 	std::tm     min_tm = {};
 	const char *min_date = _database.begin()->first.c_str();
-	const char *format = "%Y-%m-%d";
+	static const char *format = "%Y-%m-%d";
 
 	if (!strptime(date.c_str(), format, &find_tm) ||
 	    !strptime(min_date, format, &min_tm))
