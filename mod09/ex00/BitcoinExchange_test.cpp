@@ -6,12 +6,13 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 12:16:30 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:14:52 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 #include "doctest.h"
+#include <fstream>
 #include <sstream>
 #include <string>
 
@@ -65,6 +66,46 @@ TEST_SUITE("Class BitcoinExchange")
 				CHECK_THROWS_MESSAGE(btc.openDatabase(database), database);
 				++i;
 			}
+		}
+	}
+	TEST_CASE("input")
+	{
+		std::streambuf   *coutbuf = std::cout.rdbuf();
+		std::stringstream oss;
+		//
+		BitcoinExchange btc;
+
+		try
+		{
+			btc.openDatabase("data.csv");
+			std::cout.rdbuf(oss.rdbuf());
+			btc.openInput("tests/input.txt");
+			std::cout.rdbuf(coutbuf);
+		}
+		catch (...)
+		{
+			std::cout.rdbuf(coutbuf);
+			FAIL("throw");
+		}
+
+		std::ifstream result("tests/result.txt");
+
+		if (!result.is_open())
+			FAIL("not open file result.txt");
+
+		std::string line_input;
+		std::string line_output;
+		while (1)
+		{
+			std::getline(oss, line_input);
+			std::getline(result, line_output);
+
+			CHECK_EQ(line_input, line_output);
+
+			if (oss.eof())
+				break;
+			if (result.eof())
+				FAIL("result.txt eof");
 		}
 	}
 }
