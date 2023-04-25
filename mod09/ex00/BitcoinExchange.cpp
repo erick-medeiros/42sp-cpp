@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 17:48:06 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:10:28 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,20 +99,17 @@ void BitcoinExchange::_validateMinDate(std::string const &date) const
 		                            ". Dates available from " + min_date);
 }
 
-void BitcoinExchange::_trimString(std::string &str) const
+void BitcoinExchange::_trim(std::string &s) const
 {
-	static const char whitespace[] = " \t\n\r\f\v";
-
-	std::string::size_type start = str.find_first_not_of(whitespace);
+	static const char      whitespace[] = " \t\n\r\f\v";
+	std::string::size_type start = s.find_first_not_of(whitespace);
 	if (start == std::string::npos)
 	{
-		str.erase();
+		s.erase();
 		return;
 	}
-
-	std::string::size_type end = str.find_last_not_of(whitespace);
-
-	str.erase(end + 1).erase(0, start);
+	std::string::size_type end = s.find_last_not_of(whitespace);
+	s.erase(end + 1).erase(0, start);
 }
 
 float BitcoinExchange::_getValueInput(std::string const &value) const
@@ -167,13 +164,28 @@ double BitcoinExchange::_getValueDatabase(std::string const &value) const
 	return number;
 }
 
+bool BitcoinExchange::_getLineInfo(std::string const &line, char delimiter,
+                                   std::string &date, std::string &value) const
+{
+	std::stringstream ss(line);
+	std::getline(ss, date, delimiter);
+	if (ss.fail())
+		return false;
+	std::getline(ss, value);
+	if (ss.fail())
+		return false;
+	_trim(date);
+	_trim(value);
+	return true;
+};
+
 void BitcoinExchange::openDatabase(std::string const &filename)
 {
 	std::ifstream input(filename.c_str());
 	_validateInputFile(input, filename);
 
 	bool        firstLine = true;
-	std::string line;
+	std::string line, date, value;
 	while (std::getline(input, line))
 	{
 		if (firstLine)
@@ -183,13 +195,9 @@ void BitcoinExchange::openDatabase(std::string const &filename)
 			firstLine = false;
 		}
 
-		std::stringstream ss(line);
-		std::string       date;
-		std::string       value;
-		std::getline(ss, date, ',');
-		std::getline(ss, value);
-		_trimString(date);
-		_trimString(value);
+		if (!_getLineInfo(line, ',', date, value))
+			throw std::runtime_error("Error: could not read line the file: " +
+			                         filename);
 		_validateDate(date, true);
 		_database[date] = _getValueDatabase(value);
 	}
@@ -206,7 +214,7 @@ void BitcoinExchange::openInput(std::string const &filename)
 	_validateInputFile(input, filename);
 
 	bool        firstLine = true;
-	std::string line;
+	std::string line, date, value;
 	while (std::getline(input, line))
 	{
 		if (firstLine)
@@ -216,23 +224,11 @@ void BitcoinExchange::openInput(std::string const &filename)
 			firstLine = false;
 		}
 
-		std::stringstream ss(line);
-		std::string       date;
-		std::string       value;
-		std::getline(ss, date, '|');
-		if (ss.fail())
+		if (!_getLineInfo(line, '|', date, value))
 		{
 			std::cout << "Error: bad input => " << line << std::endl;
 			continue;
 		}
-		std::getline(ss, value);
-		if (ss.fail())
-		{
-			std::cout << "Error: bad input => " << line << std::endl;
-			continue;
-		}
-		_trimString(date);
-		_trimString(value);
 		float number = 0;
 		try
 		{
@@ -261,7 +257,7 @@ float BitcoinExchange::exchangeRate(std::string const &date)
 		return 0;
 
 	std::string target = date;
-	_trimString(target);
+	_trim(target);
 	std::map<std::string, double>::iterator it;
 
 	it = _database.lower_bound(target);
