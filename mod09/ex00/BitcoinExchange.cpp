@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 08:56:36 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 13:52:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ BitcoinExchange::~BitcoinExchange(void)
 }
 
 void BitcoinExchange::_validateInputFile(std::ifstream const &file,
-                                         std::string const   &name)
+                                         std::string const   &name) const
 {
 	if (!file.is_open())
 		throw std::invalid_argument("Error: could not open file: " + name);
@@ -56,7 +56,7 @@ void BitcoinExchange::_validateInputFile(std::ifstream const &file,
 	}
 }
 
-void BitcoinExchange::_validateDate(std::string const &date)
+void BitcoinExchange::_validateDate(std::string const &date, bool detail) const
 {
 	std::tm     tm = {};
 	const char *format = "%Y-%m-%d";
@@ -74,7 +74,56 @@ void BitcoinExchange::_validateDate(std::string const &date)
 	}
 
 	if (!is_valid)
-		throw std::invalid_argument("Error: invalid date: " + date);
+	{
+		if (detail)
+			throw std::invalid_argument("Error: invalid date: " + date);
+		else
+			throw std::invalid_argument("Error: invalid date.");
+	}
+}
+
+void BitcoinExchange::_validateValue(std::string const &value) const
+{
+	std::stringstream ss;
+	double            number;
+
+	ss << value;
+	ss >> number;
+	ss << number;
+
+	if (ss.str() != value)
+		throw std::invalid_argument("Error: invalid number.");
+	if (number < 0)
+		throw std::invalid_argument("Error: not a positive number.");
+	if (number > 1000)
+		throw std::invalid_argument("Error: too large a number.");
+}
+
+double BitcoinExchange::_convertValueDataBase(std::string const &value) const
+{
+	std::stringstream ss1;
+	std::stringstream ss2;
+	std::string       converted;
+	double            number = 0;
+	short             precision = 0;
+
+	{ // get precision
+		std::size_t dot = value.find('.');
+		if (dot != std::string::npos)
+			precision = value.size() - dot - 1;
+	}
+
+	ss1 << std::fixed << std::setprecision(precision) << value;
+	ss1 >> number;
+	ss2 << std::fixed << std::setprecision(precision) << number;
+	converted = ss2.str();
+
+	if (converted != value)
+		throw std::invalid_argument("Error: invalid number: " + value);
+	if (number < 0)
+		throw std::invalid_argument("Error: not a positive number: " + value);
+
+	return number;
 }
 
 void BitcoinExchange::openDatabase(std::string const &filename)
@@ -93,11 +142,11 @@ void BitcoinExchange::openDatabase(std::string const &filename)
 		}
 		std::stringstream ss(line);
 		std::string       date;
-		double            value;
+		std::string       value;
 		std::getline(ss, date, ',');
-		ss >> value;
-		_validateDate(date);
-		// _database[date] = value;
+		std::getline(ss, value);
+		_validateDate(date, true);
+		_database[date] = _convertValueDataBase(value);
 	}
 
 	if (!input.eof())

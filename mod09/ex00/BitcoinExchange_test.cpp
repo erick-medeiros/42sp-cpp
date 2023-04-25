@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 08:46:06 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 12:16:30 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ TEST_SUITE("Class BitcoinExchange")
 				if (!fileExists(database.c_str()))
 					break;
 				BitcoinExchange btc;
-				CHECK_THROWS(btc.openDatabase(database));
+				CHECK_THROWS_MESSAGE(btc.openDatabase(database), database);
 				++i;
 			}
 		}
