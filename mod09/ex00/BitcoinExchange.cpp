@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 17:42:55 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:48:06 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,11 +176,13 @@ void BitcoinExchange::openDatabase(std::string const &filename)
 	std::string line;
 	while (std::getline(input, line))
 	{
-		if (firstLine && line == "date,exchange_rate")
+		if (firstLine)
 		{
+			if (line == "date,exchange_rate")
+				continue;
 			firstLine = false;
-			continue;
 		}
+
 		std::stringstream ss(line);
 		std::string       date;
 		std::string       value;
@@ -207,10 +209,11 @@ void BitcoinExchange::openInput(std::string const &filename)
 	std::string line;
 	while (std::getline(input, line))
 	{
-		if (firstLine && line == "date | value")
+		if (firstLine)
 		{
+			if (line == "date | value")
+				continue;
 			firstLine = false;
-			continue;
 		}
 
 		std::stringstream ss(line);
