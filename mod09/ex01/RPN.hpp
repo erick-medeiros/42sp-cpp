@@ -6,13 +6,14 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:25:34 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 19:28:17 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 20:47:03 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RPN_HPP
 #define RPN_HPP
 
+#include <exception>
 #include <iostream>
 #include <stack>
 
@@ -33,7 +34,7 @@ class RPN
 	void process(char *expression);
 
   private:
-	std::stack<int> _stack;
+	void _calc(std::stack<int> &stack, char c);
 };
 
 #endif /* RPN_HPP */
