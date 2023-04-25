@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/24 18:05:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/25 08:56:36 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,53 @@ void BitcoinExchange::_validateInputFile(std::ifstream const &file,
 	}
 }
 
+void BitcoinExchange::_validateDate(std::string const &date)
+{
+	std::tm     tm = {};
+	const char *format = "%Y-%m-%d";
+	bool        is_valid = true;
+
+	if (!strptime(date.c_str(), format, &tm))
+		is_valid = false;
+	else
+	{
+		char buffer[11];
+		std::strftime(buffer, 11, format, &tm);
+		std::string result(buffer);
+		if (result != date)
+			is_valid = false;
+	}
+
+	if (!is_valid)
+		throw std::invalid_argument("Error: invalid date: " + date);
+}
+
 void BitcoinExchange::openDatabase(std::string const &filename)
 {
 	std::ifstream input(filename.c_str());
 	_validateInputFile(input, filename);
+
+	bool        firstLine = false;
+	std::string line;
+	while (std::getline(input, line))
+	{
+		if (!firstLine && line == "date,exchange_rate")
+		{
+			firstLine = true;
+			continue;
+		}
+		std::stringstream ss(line);
+		std::string       date;
+		double            value;
+		std::getline(ss, date, ',');
+		ss >> value;
+		_validateDate(date);
+		// _database[date] = value;
+	}
+
+	if (!input.eof())
+		throw std::runtime_error("Error: could not read the file: " + filename);
+
 	input.close();
 }
 
