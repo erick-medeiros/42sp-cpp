@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/26 15:41:36 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:09:59 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <bits/types/clock_t.h>
 #include <cctype>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <list>
 #include <sys/types.h>
@@ -27,15 +29,17 @@
 class PmergeMe
 {
   public:
-	typedef unsigned long long unum_t;
+	typedef unsigned long long  unum_t;
+	typedef std::list<unum_t>   list_t;
+	typedef std::vector<unum_t> vector_t;
 
 	typedef struct
 	{
-		char const        **unsorted;
-		std::list<unum_t>   list;
-		std::vector<unum_t> vector;
-		double              timeList;
-		double              timeVector;
+		char const **unsorted;
+		list_t       list;
+		vector_t     vector;
+		double       timeList;
+		double       timeVector;
 	} sort_t;
 
 	PmergeMe(void);
@@ -50,6 +54,10 @@ class PmergeMe
 
   private:
 	double _clockToMicroSeconds(clock_t &start, clock_t &end) const;
+	void   _fill(list_t &container, const char **numbers) const;
+	void   _fill(vector_t &container, const char **numbers) const;
+	void   _mergeInsert(list_t &container);
+	void   _mergeInsert(vector_t &container);
 };
 
 #endif /* PMERGEME_HPP */

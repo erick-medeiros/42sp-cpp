@@ -6,12 +6,11 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/26 15:45:20 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:09:52 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
-#include <bits/types/clock_t.h>
 
 PmergeMe::PmergeMe(void)
 {
@@ -48,11 +47,12 @@ bool PmergeMe::checkArgs(char const **argv)
 		return false;
 	for (int i = 1; argv[i]; i++)
 	{
-		for (int j = 0; argv[i][j]; j++)
-		{
+		int j = 0;
+		if (std::strlen(argv[i]) > 1 && argv[i][0] == '+')
+			j++;
+		for (; argv[i][j]; j++)
 			if (!std::isdigit(argv[i][j]))
 				return false;
-		}
 	}
 	return true;
 }
@@ -63,24 +63,6 @@ double PmergeMe::_clockToMicroSeconds(clock_t &start, clock_t &end) const
 
 	double diff = (end - start);
 	return (diff / CLOCKS_PER_SEC) * SEC_TO_MICRO;
-}
-
-void PmergeMe::sort(char const **numbers) const
-{
-	if (!numbers)
-		return;
-	sort_t  data;
-	clock_t start, end;
-	data.unsorted = numbers;
-	start = clock();
-	// data.list;
-	end = clock();
-	data.timeList = _clockToMicroSeconds(start, end);
-	start = clock();
-	// data.vector
-	end = clock();
-	data.timeVector = _clockToMicroSeconds(start, end);
-	display(data);
 }
 
 void PmergeMe::display(sort_t const &data) const
@@ -100,4 +82,46 @@ void PmergeMe::display(sort_t const &data) const
 	std::cout << "Time to process a range of " << data.vector.size()
 	          << " elements with std::list : " << data.timeVector << " µs"
 	          << std::endl;
+}
+
+void PmergeMe::sort(char const **numbers) const
+{
+	if (!numbers)
+		return;
+	sort_t  data;
+	clock_t start, end;
+	data.unsorted = numbers;
+	start = clock();
+	_fill(data.list, numbers);
+	end = clock();
+	data.timeList = _clockToMicroSeconds(start, end);
+	start = clock();
+	_fill(data.vector, numbers);
+	end = clock();
+	data.timeVector = _clockToMicroSeconds(start, end);
+	display(data);
+}
+
+void PmergeMe::_fill(list_t &container, const char **numbers) const
+{
+	if (numbers)
+		for (int i = 0; numbers[i]; i++)
+			container.push_back(std::atoll(numbers[i]));
+}
+
+void PmergeMe::_fill(vector_t &container, const char **numbers) const
+{
+	if (numbers)
+		for (int i = 0; numbers[i]; i++)
+			container.push_back(std::atoll(numbers[i]));
+}
+
+void PmergeMe::_mergeInsert(list_t &container)
+{
+	(void) container;
+}
+
+void PmergeMe::_mergeInsert(vector_t &container)
+{
+	(void) container;
 }
