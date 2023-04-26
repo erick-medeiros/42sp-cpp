@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/26 09:36:10 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:16:35 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,57 +43,83 @@ BitcoinExchange::~BitcoinExchange(void)
 		std::cout << "BitcoinExchange destructor called" << std::endl;
 }
 
+// error init
+
+BitcoinExchange::Error::Error() {}
+
+BitcoinExchange::Error::Error(std::string const &err)
+{
+	BitcoinExchange::Error::_message = err;
+}
+
+BitcoinExchange::Error::Error(const BitcoinExchange::Error &copy)
+{
+	*this = copy;
+}
+
+BitcoinExchange::Error &
+BitcoinExchange::Error::operator=(const BitcoinExchange::Error &copy)
+{
+	_message = copy._message;
+	return *this;
+}
+
+BitcoinExchange::Error::~Error() throw() {}
+
+const char *BitcoinExchange::Error::what() const throw()
+{
+	return BitcoinExchange::Error::_message.c_str();
+}
+
+// error end
+
 void BitcoinExchange::_validateInputFile(std::ifstream const &file,
                                          std::string const   &name) const
 {
 	if (!file.is_open())
-		throw std::invalid_argument("Error: could not open file: " + name);
+		throw Error("could not open file: " + name);
 	// is dir
 	DIR *dir = opendir(name.c_str());
 	if (dir != NULL)
 	{
 		closedir(dir);
-		throw std::invalid_argument("Error: filename is not a file: " + name);
+		throw Error("filename is not a file: " + name);
 	}
 }
 
-void BitcoinExchange::_validateDate(std::string const &date) const
+bool BitcoinExchange::_isValidDate(std::string const &date) const
 {
-	std::tm            tm = {};
-	static const char *format = "%Y-%m-%d";
-	bool               is_valid = true;
+	std::tm tm = {};
+	bool    is_valid = true;
 
-	if (!strptime(date.c_str(), format, &tm))
+	if (!strptime(date.c_str(), DATE_FORMAT, &tm))
 		is_valid = false;
 	else
 	{
 		char buffer[11];
-		std::strftime(buffer, 11, format, &tm);
+		std::strftime(buffer, 11, DATE_FORMAT, &tm);
 		std::string result(buffer);
 		if (result != date)
 			is_valid = false;
 	}
-
-	if (!is_valid)
-		throw std::invalid_argument("Error: invalid date: " + date);
+	return (is_valid);
 }
 
-void BitcoinExchange::_validateMinDate(std::string const &date) const
+void BitcoinExchange::_validateInputDate(std::string const &date) const
 {
 	if (_database.empty())
 		return;
-	std::tm            date_tm = {};
-	std::tm            min_tm = {};
-	const char        *min_date = _database.begin()->first.c_str();
-	static const char *format = "%Y-%m-%d";
+	std::tm     date_tm = {};
+	std::tm     min_tm = {};
+	const char *min = _database.begin()->first.c_str();
 
-	if (!strptime(date.c_str(), format, &date_tm) ||
-	    !strptime(min_date, format, &min_tm))
-		throw std::invalid_argument("Error: intern");
-
+	if (!_isValidDate(date))
+		throw Error("invalid date: " + date);
+	if (!strptime(date.c_str(), DATE_FORMAT, &date_tm) ||
+	    !strptime(min, DATE_FORMAT, &min_tm))
+		throw Error("intern");
 	if (std::mktime(&date_tm) < std::mktime(&min_tm))
-		throw std::invalid_argument("Error: invalid date " + date +
-		                            ". Dates available from " + min_date);
+		throw Error("invalid date " + date + ". Dates available from " + min);
 }
 
 void BitcoinExchange::_trim(std::string &s) const
@@ -123,11 +149,11 @@ float BitcoinExchange::_getValueInput(std::string const &value) const
 	converted = ss2.str();
 
 	if (converted != value)
-		throw std::invalid_argument("Error: invalid number.");
+		throw Error("invalid number.");
 	if (number < 0)
-		throw std::invalid_argument("Error: not a positive number.");
+		throw Error("not a positive number.");
 	if (number > 1000)
-		throw std::invalid_argument("Error: too large a number.");
+		throw Error("too large a number.");
 	return number;
 }
 
@@ -140,7 +166,8 @@ short BitcoinExchange::_getPrecision(std::string const &value) const
 	return precision;
 }
 
-double BitcoinExchange::_getValueDatabase(std::string const &value) const
+double BitcoinExchange::_getValueDatabase(std::string const &database,
+                                          std::string const &value) const
 {
 	std::stringstream ss1;
 	std::stringstream ss2;
@@ -154,10 +181,9 @@ double BitcoinExchange::_getValueDatabase(std::string const &value) const
 	converted = ss2.str();
 
 	if (converted != value)
-		throw std::invalid_argument("Error: invalid number: " + value);
+		throw Error("in database " + database + ": invalid number: " + value);
 	if (number < 0)
-		throw std::invalid_argument("Error: not a positive number: " + value);
-
+		throw Error("in database " + database + ": negative number: " + value);
 	return number;
 }
 
@@ -191,24 +217,23 @@ void BitcoinExchange::openDatabase(std::string const &filename)
 				continue;
 			firstLine = false;
 		}
-
+		if (line.empty())
+			continue;
 		if (!_getLineInfo(line, ',', date, value))
-			throw std::runtime_error("Error: could not read line the file: " +
-			                         filename);
-		_validateDate(date);
-		_database[date] = _getValueDatabase(value);
+			throw Error("in database " + filename + ": bad line: " + line);
+		if (!_isValidDate(date))
+			throw Error("in database " + filename + ": invalid date: " + date);
+		_database[date] = _getValueDatabase(filename, value);
 	}
-
-	if (!input.eof())
-		throw std::runtime_error("Error: could not read the file: " + filename);
-
 	input.close();
+	if (_database.empty())
+		throw Error("database empty");
 }
 
 void BitcoinExchange::openInput(std::string const &filename)
 {
 	if (_database.empty())
-		throw std::runtime_error("Error: Database empty");
+		throw Error("database empty");
 	std::ifstream input(filename.c_str());
 	_validateInputFile(input, filename);
 
@@ -223,30 +248,24 @@ void BitcoinExchange::openInput(std::string const &filename)
 			firstLine = false;
 		}
 
-		if (!_getLineInfo(line, '|', date, value))
-		{
-			std::cout << "Error: bad input => " << line << std::endl;
+		if (line.empty())
 			continue;
-		}
-		float number = 0;
+
 		try
 		{
-			_validateDate(date);
-			_validateMinDate(date);
-			number = _getValueInput(value);
+			if (!_getLineInfo(line, '|', date, value))
+				throw Error("bad input => " + line);
+			_validateInputDate(date);
+			float  number = _getValueInput(value);
+			double result = number * exchangeRate(date);
+			std::cout << date << " => " << value << " = " << result
+			          << std::endl;
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
-			continue;
+			std::cout << "Error: " << e.what() << std::endl;
 		}
-		double result = number * exchangeRate(date);
-		std::cout << date << " => " << value << " = " << result << std::endl;
 	}
-
-	if (!input.eof())
-		throw std::runtime_error("Error: could not read the file: " + filename);
-
 	input.close();
 }
 
