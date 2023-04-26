@@ -43,7 +43,7 @@ RPN::~RPN(void)
 
 RPN::rpn_t RPN::process(char const *expression) const
 {
-	static char const SEPARATOR = ' ';
+	static char const        SEPARATOR = ' ';
 	static std::string const CHARS = "0123456789+-/* ";
 	std::stack<rpn_t>        stack;
 

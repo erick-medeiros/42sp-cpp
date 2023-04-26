@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:43 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 18:45:52 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/26 09:36:10 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,16 @@ void BitcoinExchange::_validateMinDate(std::string const &date) const
 {
 	if (_database.empty())
 		return;
-	std::tm     find_tm = {};
-	std::tm     min_tm = {};
-	const char *min_date = _database.begin()->first.c_str();
+	std::tm            date_tm = {};
+	std::tm            min_tm = {};
+	const char        *min_date = _database.begin()->first.c_str();
 	static const char *format = "%Y-%m-%d";
 
-	if (!strptime(date.c_str(), format, &find_tm) ||
+	if (!strptime(date.c_str(), format, &date_tm) ||
 	    !strptime(min_date, format, &min_tm))
 		throw std::invalid_argument("Error: intern");
 
-	if (std::mktime(&find_tm) < std::mktime(&min_tm))
+	if (std::mktime(&date_tm) < std::mktime(&min_tm))
 		throw std::invalid_argument("Error: invalid date " + date +
 		                            ". Dates available from " + min_date);
 }
