@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:25:34 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 20:47:03 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/26 09:03:50 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,18 @@
 class RPN
 {
   public:
+	typedef long long int rpn_t;
+
 	RPN(void);
 	RPN(const RPN &copy);
 	RPN &operator=(const RPN &copy);
 	~RPN(void);
 
-	void process(char *expression);
+	rpn_t process(char const *expression) const;
+	rpn_t process(std::string const &expression) const;
 
   private:
-	void _calc(std::stack<int> &stack, char c);
+	void _calc(std::stack<rpn_t> &stack, char c) const;
 };
 
 #endif /* RPN_HPP */

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:25:34 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/25 20:46:49 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/26 09:13:51 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ RPN::~RPN(void)
 		std::cout << "RPN destructor called" << std::endl;
 }
 
-void RPN::process(char *expression)
+RPN::rpn_t RPN::process(char const *expression) const
 {
-	static std::string const chars = "0123456789+-/* ";
-	std::stack<int>          stack;
+	static char const SEPARATOR = ' ';
+	static std::string const CHARS = "0123456789+-/* ";
+	std::stack<rpn_t>        stack;
 
 	unsigned int i = 0;
 	char         previous = 0;
@@ -52,29 +53,34 @@ void RPN::process(char *expression)
 	while (expression[i])
 	{
 		current = expression[i];
-		if (chars.find(current) == std::string::npos)
+		if (CHARS.find(current) == std::string::npos)
 			throw std::invalid_argument("invalid character");
-		if (i && previous != ' ' && current != ' ')
+		if (i && previous != SEPARATOR && current != SEPARATOR)
 			throw std::invalid_argument("separate elements by space");
 		if (std::isdigit(current))
-			stack.push(current);
-		else if (current != ' ')
+			stack.push(current - '0');
+		else if (current != SEPARATOR)
 			_calc(stack, current);
 		++i;
 		previous = current;
 	}
 	if (stack.size() != 1)
 		throw std::invalid_argument("invalid expression");
-	std::cout << stack.top() << std::endl;
+	return stack.top();
 }
 
-void RPN::_calc(std::stack<int> &stack, char c)
+RPN::rpn_t RPN::process(std::string const &expression) const
+{
+	return process(expression.c_str());
+}
+
+void RPN::_calc(std::stack<rpn_t> &stack, char c) const
 {
 	if (stack.size() < 2)
 		throw std::invalid_argument("invalid expression");
-	int a = stack.top();
+	rpn_t b = stack.top();
 	stack.pop();
-	int b = stack.top();
+	rpn_t a = stack.top();
 	stack.pop();
 	switch (c)
 	{
