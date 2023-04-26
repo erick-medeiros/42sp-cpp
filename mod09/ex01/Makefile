@@ -42,10 +42,10 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	./$(NAME) input.txt
+	./$(NAME) "1 1 +"
 
 leaks: $(NAME)
-	$(VALGRIND) ./$(NAME) input.txt
+	$(VALGRIND) ./$(NAME) "1 1 +"
 
 $(TESTER): $(NAME) $(OBJ_TEST) #doctest.h
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJ_TEST) $(filter-out %main.o, $(OBJ))
