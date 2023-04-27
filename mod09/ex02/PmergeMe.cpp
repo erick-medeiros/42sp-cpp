@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/27 17:26:18 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:41:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,23 @@ double PmergeMe::_clockToMicroSeconds(clock_t &start, clock_t &end) const
 
 void PmergeMe::display(sort_t const &data) const
 {
-	vector_t::const_iterator it;
+	if (!_is_sorted(data.vector))
+	{
+		std::cout << "vector unsorted" << std::endl;
+		return;
+	}
+	if (!_is_sorted(data.list))
+	{
+		std::cout << "list unsorted" << std::endl;
+		return;
+	}
 
 	std::cout << "Before: ";
 	for (int i = 0; data.unsorted[i]; i++)
 		std::cout << data.unsorted[i] << " ";
 	std::cout << std::endl;
 	std::cout << "After:  ";
+	vector_t::const_iterator it;
 	for (it = data.vector.begin(); it != data.vector.end(); it++)
 		std::cout << *it << " ";
 	std::cout << std::endl;
@@ -112,6 +122,19 @@ void PmergeMe::_fill(T &container, const char **numbers) const
 		return;
 	for (int i = 0; numbers[i]; i++)
 		container.push_back(std::atoll(numbers[i]));
+}
+
+template <typename T> bool PmergeMe::_is_sorted(T &container) const
+{
+	typename T::const_iterator it, prev;
+	prev = container.begin();
+	it = container.begin();
+	for (++it; it != container.end(); it++)
+	{
+		if (*it < *prev)
+			return false;
+	}
+	return true;
 }
 
 // vector
@@ -195,10 +218,11 @@ void PmergeMe::_mergeInsertSort(list_t &container)
 		container = lists.front();
 }
 
-void PmergeMe::_divideAndConquer(list_t &container, std::list<list_t> lists)
+void PmergeMe::_divideAndConquer(list_t &container, std::list<list_t> &lists)
 {
 	if (container.size() <= THRESHOLD)
 	{
+		_insertSort(container);
 		lists.push_back(container);
 	}
 	else
@@ -224,10 +248,14 @@ void PmergeMe::_insertSort(list_t &list)
 	{
 		unum_t curr = *i;
 		j = i;
-		while (j != list.begin() && curr < *--j)
+		while (j != list.begin())
 		{
-			unum_t prev = *j++;
-			*j-- = prev;
+			list_t::iterator prev = j;
+			--prev;
+			if (curr < *prev)
+				*j-- = *prev;
+			else
+				break;
 		}
 		*j = curr;
 	}
