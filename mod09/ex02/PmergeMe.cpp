@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/27 18:41:26 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:00:44 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,28 @@ double PmergeMe::_clockToMicroSeconds(clock_t &start, clock_t &end) const
 
 void PmergeMe::display(sort_t const &data) const
 {
-	if (!_is_sorted(data.vector))
+	if (!_isSorted(data.vector))
 	{
-		std::cout << "vector unsorted" << std::endl;
+		std::cout << "Error: vector unsorted" << std::endl;
 		return;
 	}
-	if (!_is_sorted(data.list))
+	if (!_isSorted(data.list))
 	{
-		std::cout << "list unsorted" << std::endl;
+		std::cout << "Error: list unsorted" << std::endl;
 		return;
 	}
 
+	if (!_isEqualContainer(data.list, data.vector))
+	{
+		std::cout << "Error: vector and list are different" << std::endl;
+		return;
+	}
+
+	size_t elem = 10;
 	std::cout << "Before: ";
-	for (int i = 0; data.unsorted[i]; i++)
-		std::cout << data.unsorted[i] << " ";
-	std::cout << std::endl;
+	_printContainer(data.unsorted, elem);
 	std::cout << "After:  ";
-	vector_t::const_iterator it;
-	for (it = data.vector.begin(); it != data.vector.end(); it++)
-		std::cout << *it << " ";
-	std::cout << std::endl;
+	_printContainer(data.vector, elem);
 	std::cout << "Time to process a range of " << data.list.size()
 	          << " elements with std::list : " << data.timeList << " µs"
 	          << std::endl;
@@ -124,7 +126,7 @@ void PmergeMe::_fill(T &container, const char **numbers) const
 		container.push_back(std::atoll(numbers[i]));
 }
 
-template <typename T> bool PmergeMe::_is_sorted(T &container) const
+template <typename T> bool PmergeMe::_isSorted(T &container) const
 {
 	typename T::const_iterator it, prev;
 	prev = container.begin();
@@ -135,6 +137,48 @@ template <typename T> bool PmergeMe::_is_sorted(T &container) const
 			return false;
 	}
 	return true;
+}
+
+template <typename T, typename J>
+bool PmergeMe::_isEqualContainer(T &container1, J &container2) const
+{
+	typename T::const_iterator it1 = container1.begin();
+	typename J::const_iterator it2 = container2.begin();
+	while (it1 != container1.end() && it2 != container2.end())
+		if (*it1++ != *it2++)
+			return false;
+	if (it1 != container1.end() && it2 != container2.end())
+		return false;
+	return true;
+}
+
+template <typename T> void PmergeMe::_printContainer(T &container) const
+{
+	typename T::const_iterator it;
+	for (it = container.begin(); it != container.end(); it++)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+}
+
+template <typename T>
+void PmergeMe::_printContainer(T &container, size_t size) const
+{
+	typename T::const_iterator it;
+	size_t                     i = 0;
+	for (it = container.begin(); it != container.end(); it++)
+	{
+		if (i++ >= size)
+			break;
+		std::cout << *it << " ";
+	}
+	std::cout << "[..]" << std::endl;
+}
+
+void PmergeMe::_printContainer(const char **numbers, size_t size) const
+{
+	for (size_t i = 0; numbers[i] && i < size; i++)
+		std::cout << numbers[i] << " ";
+	std::cout << "[..]" << std::endl;
 }
 
 // vector
@@ -156,41 +200,43 @@ void PmergeMe::_mergeInsertSort(vector_t &container, unum_t min, unum_t max)
 
 void PmergeMe::_insertSort(vector_t &container, unum_t start, unum_t end)
 {
-	unum_t i = 0, j = 0;
+	unum_t i = 0, j = 0, prev = 0;
 
 	for (i = start; i < end; i++)
 	{
-		unum_t it = container[i];
+		unum_t curr = container[i];
 		j = i;
-		while (j > start && it < container[j - 1])
+		while (j > start)
 		{
-			container[j] = container[j - 1];
-			j--;
+			prev = container[j - 1];
+			if (curr < prev)
+				container[j--] = prev;
+			else
+				break;
 		}
-		container[j] = it;
+		container[j] = curr;
 	}
 }
 
 void PmergeMe::_mergeSort(vector_t &container, unum_t min, unum_t max,
                           unum_t mid)
 {
-	unum_t firstIndex = min;
-	unum_t secondIndex = mid + 1;
+	unum_t it1 = min;
+	unum_t it2 = mid;
 	unum_t index;
 
-	vector_t temp(max - min + 1, 0);
+	vector_t temp(max - min, 0);
 
-	for (index = min; index <= max; index++)
+	for (index = min; index < max; index++)
 	{
-		if (firstIndex <= mid &&
-		    (secondIndex > max ||
-		     container[firstIndex] <= container[secondIndex]))
-			temp[index - min] = container[firstIndex++];
+		if (it1 < mid && (it2 >= max || container[it1] <= container[it2]))
+			temp[index - min] = container[it1++];
 		else
-			temp[index - min] = container[secondIndex++];
+			temp[index - min] = container[it2++];
 	}
+
 	index = 0;
-	while ((index + min) <= max)
+	while ((index + min) < max)
 	{
 		container[index + min] = temp[index];
 		index++;
