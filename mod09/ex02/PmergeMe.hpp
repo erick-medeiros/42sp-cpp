@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/27 20:03:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:07:03 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ class PmergeMe
 	void _insertSort(vector_t &container, unum_t start, unum_t end);
 	void _mergeSort(vector_t &container, unum_t min, unum_t max, unum_t mid);
 	void _mergeInsertSort(list_t &container);
-	void _divideAndConquer(list_t &container, std::list<list_t> &lists);
 	void _insertSort(list_t &container);
 	void _mergeSort(list_t &list1, list_t &list2, list_t &merged);
 };

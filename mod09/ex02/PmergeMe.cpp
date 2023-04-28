@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/28 11:03:58 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:07:46 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void PmergeMe::display(sort_t const &data) const
 		std::cout << "Error: list unsorted" << std::endl;
 		return;
 	}
-
 	if (!_isEqualContainer(data.list, data.vector))
 	{
 		std::cout << "Error: vector and list are different" << std::endl;
@@ -133,7 +132,7 @@ template <typename T> bool PmergeMe::_isSorted(T &container) const
 	it = container.begin();
 	for (++it; it != container.end(); it++)
 	{
-		if (*it < *prev)
+		if (*it < *prev++)
 			return false;
 	}
 	return true;
@@ -247,57 +246,36 @@ void PmergeMe::_mergeSort(vector_t &container, unum_t min, unum_t max,
 
 void PmergeMe::_mergeInsertSort(list_t &container)
 {
-	std::list<list_t> lists;
-	_divideAndConquer(container, lists);
-	while (lists.size() > 1)
-	{
-		list_t merged, left, right;
-
-		list_t &list1 = lists.front();
-		left.splice(left.begin(), list1, list1.begin(), list1.end());
-		lists.pop_front();
-		list_t &list2 = lists.front();
-		right.splice(right.begin(), list2, list2.begin(), list2.end());
-		lists.pop_front();
-
-		_mergeSort(left, right, merged);
-		lists.push_back(merged);
-	}
-	if (!lists.empty())
-		container = lists.front();
-}
-
-void PmergeMe::_divideAndConquer(list_t &container, std::list<list_t> &lists)
-{
 	if (container.size() <= THRESHOLD)
 	{
 		_insertSort(container);
-		lists.push_back(container);
 	}
 	else
 	{
+		size_t           mid_size = (container.size() / 2);
 		list_t::iterator mid = container.begin();
-		std::advance(mid, container.size() / 2);
+		std::advance(mid, mid_size);
 
-		list_t list1;
-		list_t list2;
-		list1.splice(list1.begin(), container, container.begin(), mid);
-		list2.splice(list2.begin(), container, mid, container.end());
+		list_t list1, list2, merged;
+		list1.splice(list1.end(), container, container.begin(), mid);
+		list2.splice(list2.end(), container, mid, container.end());
 
-		_divideAndConquer(list1, lists);
-		_divideAndConquer(list2, lists);
+		_mergeInsertSort(list1);
+		_mergeInsertSort(list2);
+
+		_mergeSort(list1, list2, merged);
 	}
 }
 
-void PmergeMe::_insertSort(list_t &list)
+void PmergeMe::_insertSort(list_t &container)
 {
 	list_t::iterator i, j;
 
-	for (i = list.begin(); i != list.end(); i++)
+	for (i = container.begin(); i != container.end(); i++)
 	{
 		unum_t curr = *i;
 		j = i;
-		while (j != list.begin())
+		while (j != container.begin())
 		{
 			list_t::iterator prev = j;
 			--prev;
