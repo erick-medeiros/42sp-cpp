@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/28 14:07:46 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:28:09 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,34 +60,30 @@ bool PmergeMe::checkArgs(char const **argv)
 double PmergeMe::_clockToMicroSeconds(clock_t &start, clock_t &end) const
 {
 	static const int SEC_TO_MICRO = 1e6; // 10^6
-
-	double diff = (end - start);
-	return (diff / CLOCKS_PER_SEC) * SEC_TO_MICRO;
+	return (static_cast<double>(end - start) / CLOCKS_PER_SEC) * SEC_TO_MICRO;
 }
 
 void PmergeMe::display(sort_t const &data) const
 {
-	if (!_isSorted(data.vector))
+	std::vector<unum_t> sorted = data.unsorted;
+	std::sort(sorted.begin(), sorted.end());
+
+	if (!_isEqual(sorted, data.vector))
 	{
 		std::cout << "Error: vector unsorted" << std::endl;
 		return;
 	}
-	if (!_isSorted(data.list))
+	if (!_isEqual(sorted, data.list))
 	{
 		std::cout << "Error: list unsorted" << std::endl;
 		return;
 	}
-	if (!_isEqualContainer(data.list, data.vector))
-	{
-		std::cout << "Error: vector and list are different" << std::endl;
-		return;
-	}
 
-	size_t elem = 4;
+	size_t show_elems = 4;
 	std::cout << "Before: ";
-	_printContainer(data.unsorted, elem);
+	_printContainer(data.unsorted, show_elems);
 	std::cout << "After:  ";
-	_printContainer(data.vector, elem);
+	_printContainer(data.vector, show_elems);
 	std::cout << "Time to process a range of " << data.list.size()
 	          << " elements with std::list :   " << data.timeList << " µs"
 	          << std::endl;
@@ -102,7 +98,7 @@ void PmergeMe::sort(char const **numbers)
 		return;
 	sort_t  data;
 	clock_t start, end;
-	data.unsorted = numbers;
+	_fill(data.unsorted, numbers);
 	start = clock();
 	_fill(data.list, numbers);
 	_mergeInsertSort(data.list);
@@ -125,22 +121,11 @@ void PmergeMe::_fill(T &container, const char **numbers) const
 		container.push_back(std::atoll(numbers[i]));
 }
 
-template <typename T> bool PmergeMe::_isSorted(T &container) const
-{
-	typename T::const_iterator it, prev;
-	prev = container.begin();
-	it = container.begin();
-	for (++it; it != container.end(); it++)
-	{
-		if (*it < *prev++)
-			return false;
-	}
-	return true;
-}
-
 template <typename T, typename J>
-bool PmergeMe::_isEqualContainer(T &container1, J &container2) const
+bool PmergeMe::_isEqual(T &container1, J &container2) const
 {
+	if (container1.size() != container2.size())
+		return false;
 	typename T::const_iterator it1 = container1.begin();
 	typename J::const_iterator it2 = container2.begin();
 	while (it1 != container1.end() && it2 != container2.end())
@@ -149,14 +134,6 @@ bool PmergeMe::_isEqualContainer(T &container1, J &container2) const
 	if (it1 != container1.end() && it2 != container2.end())
 		return false;
 	return true;
-}
-
-template <typename T> void PmergeMe::_printContainer(T &container) const
-{
-	typename T::const_iterator it;
-	for (it = container.begin(); it != container.end(); it++)
-		std::cout << *it << " ";
-	std::cout << std::endl;
 }
 
 template <typename T>
@@ -170,14 +147,9 @@ void PmergeMe::_printContainer(T &container, size_t size) const
 			break;
 		std::cout << *it << " ";
 	}
-	std::cout << "[...]" << std::endl;
-}
-
-void PmergeMe::_printContainer(const char **numbers, size_t size) const
-{
-	for (size_t i = 0; numbers[i] && i < size; i++)
-		std::cout << numbers[i] << " ";
-	std::cout << "[...]" << std::endl;
+	if (it != container.end())
+		std::cout << "[...]";
+	std::cout << std::endl;
 }
 
 // vector
@@ -256,14 +228,14 @@ void PmergeMe::_mergeInsertSort(list_t &container)
 		list_t::iterator mid = container.begin();
 		std::advance(mid, mid_size);
 
-		list_t list1, list2, merged;
+		list_t list1, list2;
 		list1.splice(list1.end(), container, container.begin(), mid);
 		list2.splice(list2.end(), container, mid, container.end());
 
 		_mergeInsertSort(list1);
 		_mergeInsertSort(list2);
 
-		_mergeSort(list1, list2, merged);
+		_mergeSort(list1, list2, container);
 	}
 }
 

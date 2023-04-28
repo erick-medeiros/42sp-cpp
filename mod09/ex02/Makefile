@@ -45,6 +45,8 @@ run: $(NAME)
 	./$(NAME) 9 1 8 2 7 3 6 4 5
 	@echo
 	./$(NAME) `shuf -i 1-100000 -n 3000 | tr "\n" " "`
+	@echo
+	./$(NAME) `shuf -i 1-100000 -n 10000 | tr "\n" " "`
 
 leaks: $(NAME)
 	$(VALGRIND) ./$(NAME) 9 1 8 2 7 3 6 4 5

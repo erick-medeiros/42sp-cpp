@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/26 18:08:46 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:19:13 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ TEST_SUITE("checkArgs")
 	{
 		{
 			const char *argv[] = {"./", "a", NULL};
+			CHECK_FALSE(PmergeMe::checkArgs(argv));
+		}
+		{
+			const char *argv[] = {"./", "1f", NULL};
+			CHECK_FALSE(PmergeMe::checkArgs(argv));
+		}
+		{
+			const char *argv[] = {"./", "f1", NULL};
 			CHECK_FALSE(PmergeMe::checkArgs(argv));
 		}
 		{

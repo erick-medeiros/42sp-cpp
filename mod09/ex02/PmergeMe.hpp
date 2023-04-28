@@ -6,17 +6,19 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/28 14:07:03 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:26:23 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP
 
+#include <algorithm>
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
+#include <iomanip>
 #include <iostream>
 #include <list>
 #include <vector>
@@ -36,11 +38,11 @@ class PmergeMe
 
 	typedef struct
 	{
-		char const **unsorted;
-		list_t       list;
-		vector_t     vector;
-		double       timeList;
-		double       timeVector;
+		vector_t unsorted;
+		list_t   list;
+		vector_t vector;
+		double   timeList;
+		double   timeVector;
 	} sort_t;
 
 	PmergeMe(void);
@@ -56,12 +58,9 @@ class PmergeMe
   private:
 	double _clockToMicroSeconds(clock_t &start, clock_t &end) const;
 	template <typename T> void _fill(T &container, const char **numbers) const;
-	template <typename T> bool _isSorted(T &container) const;
 	template <typename T, typename J>
-	bool _isEqualContainer(T &container1, J &container2) const;
-	template <typename T> void _printContainer(T &container) const;
+	bool                       _isEqual(T &container1, J &container2) const;
 	template <typename T> void _printContainer(T &container, size_t size) const;
-	void _printContainer(const char **numbers, size_t size) const;
 	void _mergeInsertSort(vector_t &container, unum_t min, unum_t max);
 	void _insertSort(vector_t &container, unum_t start, unum_t end);
 	void _mergeSort(vector_t &container, unum_t min, unum_t max, unum_t mid);
