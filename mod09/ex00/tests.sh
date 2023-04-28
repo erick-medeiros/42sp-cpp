@@ -2,7 +2,7 @@
 
 # config
 BIN=btc
-ERROR_USAGE_MSG="Usage: btc <input_file_csv>"
+ERROR_USAGE_MSG="Usage: btc <input_file>"
 ERROR_OPEN_MSG="Error: could not open file:" # + filename
 ERROR_NOTFILE_MSG="Error: filename is not a file:" # + filename
 

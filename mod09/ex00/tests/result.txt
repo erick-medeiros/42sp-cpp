@@ -10,3 +10,4 @@ Error: too large a number.
 Error: invalid date 2009-01-01. Dates available from 2009-01-02
 Error: invalid number.
 Error: invalid date: 2001-42-42
+Error: invalid date: date

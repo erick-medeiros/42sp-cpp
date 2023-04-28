@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 09:35:25 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/26 17:31:53 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:41:38 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
-		std::cerr << "Usage: btc <input_file_csv>" << std::endl;
+		std::cerr << "Usage: btc <input_file>" << std::endl;
 		return 1;
 	}
 
