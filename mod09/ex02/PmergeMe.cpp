@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/28 09:56:10 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:03:58 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,10 +251,13 @@ void PmergeMe::_mergeInsertSort(list_t &container)
 	_divideAndConquer(container, lists);
 	while (lists.size() > 1)
 	{
-		list_t merged;
-		list_t left(lists.front());
+		list_t merged, left, right;
+
+		list_t &list1 = lists.front();
+		left.splice(left.begin(), list1, list1.begin(), list1.end());
 		lists.pop_front();
-		list_t right(lists.front());
+		list_t &list2 = lists.front();
+		right.splice(right.begin(), list2, list2.begin(), list2.end());
 		lists.pop_front();
 
 		_mergeSort(left, right, merged);
