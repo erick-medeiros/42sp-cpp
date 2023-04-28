@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:27:23 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/27 20:00:44 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 09:56:10 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ void PmergeMe::display(sort_t const &data) const
 		return;
 	}
 
-	size_t elem = 10;
+	size_t elem = 4;
 	std::cout << "Before: ";
 	_printContainer(data.unsorted, elem);
 	std::cout << "After:  ";
 	_printContainer(data.vector, elem);
 	std::cout << "Time to process a range of " << data.list.size()
-	          << " elements with std::list : " << data.timeList << " µs"
+	          << " elements with std::list :   " << data.timeList << " µs"
 	          << std::endl;
 	std::cout << "Time to process a range of " << data.vector.size()
 	          << " elements with std::vector : " << data.timeVector << " µs"
@@ -171,14 +171,14 @@ void PmergeMe::_printContainer(T &container, size_t size) const
 			break;
 		std::cout << *it << " ";
 	}
-	std::cout << "[..]" << std::endl;
+	std::cout << "[...]" << std::endl;
 }
 
 void PmergeMe::_printContainer(const char **numbers, size_t size) const
 {
 	for (size_t i = 0; numbers[i] && i < size; i++)
 		std::cout << numbers[i] << " ";
-	std::cout << "[..]" << std::endl;
+	std::cout << "[...]" << std::endl;
 }
 
 // vector
