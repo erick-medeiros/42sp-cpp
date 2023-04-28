@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:25:34 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/26 09:10:35 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:40:56 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,18 @@ TEST_SUITE("Class RPN")
 		}
 		SUBCASE("multi")
 		{
+			// pdf
 			CHECK_EQ(rpn.process("8 9 * 9 - 9 - 9 - 4 - 1 +"), 42);
 			CHECK_EQ(rpn.process("7 7 * 7 -"), 42);
 			CHECK_EQ(rpn.process("1 2 * 2 / 2 * 2 4 - +"), 0);
+			// extras
 			std::string expr = "9 9 * 9 * 9 * 9 * 9 * 9 * 9 * 9 * 9 *";
 			CHECK_EQ(rpn.process(expr), 3486784401);
+			CHECK_EQ(rpn.process("-1 1 +"), 0);
+			CHECK_EQ(rpn.process("+1 +1 +"), 2);
+			CHECK_EQ(rpn.process("-1 2 *"), -2);
+			CHECK_EQ(rpn.process("2 -1 *"), -2);
+			CHECK_EQ(rpn.process("-2 -2 *"), 4);
 		}
 		SUBCASE("error")
 		{

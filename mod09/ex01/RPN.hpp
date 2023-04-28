@@ -6,13 +6,14 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:25:34 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/26 09:03:50 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:15:01 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RPN_HPP
 #define RPN_HPP
 
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <stack>

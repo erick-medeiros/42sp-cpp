@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 19:25:34 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/04/26 09:13:51 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:14:56 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,36 @@ RPN::~RPN(void)
 
 RPN::rpn_t RPN::process(char const *expression) const
 {
+	static size_t const      NPOS = std::string::npos;
 	static char const        SEPARATOR = ' ';
+	static std::string const SIGNAL = "+-";
 	static std::string const CHARS = "0123456789+-/* ";
 	std::stack<rpn_t>        stack;
 
 	unsigned int i = 0;
 	char         previous = 0;
 	char         current = 0;
+	char         next = 0;
 	while (expression[i])
 	{
 		current = expression[i];
-		if (CHARS.find(current) == std::string::npos)
+		next = expression[i + 1];
+		if (CHARS.find(current) == NPOS)
 			throw std::invalid_argument("invalid character");
-		if (i && previous != SEPARATOR && current != SEPARATOR)
+		else if (i && previous != SEPARATOR && current != SEPARATOR)
 			throw std::invalid_argument("separate elements by space");
-		if (std::isdigit(current))
+		else if (std::isdigit(next) && SIGNAL.find(current) != NPOS)
+		{
+			char buffer[] = {current, next, 0};
+			stack.push(std::atoi(buffer));
+			i++;
+		}
+		else if (std::isdigit(current))
 			stack.push(current - '0');
 		else if (current != SEPARATOR)
 			_calc(stack, current);
+		previous = expression[i];
 		++i;
-		previous = current;
 	}
 	if (stack.size() != 1)
 		throw std::invalid_argument("invalid expression");

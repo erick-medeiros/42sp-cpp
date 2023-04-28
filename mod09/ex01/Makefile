@@ -42,7 +42,8 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	./$(NAME) "1 1 +"
+	@echo "2 * (2 + 1) = 2 2 1 + *"
+	./$(NAME) "2 2 1 + *"
 
 leaks: $(NAME)
 	$(VALGRIND) ./$(NAME) "1 1 +"
@@ -51,7 +52,6 @@ $(TESTER): $(NAME) $(OBJ_TEST) #doctest.h
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJ_TEST) $(filter-out %main.o, $(OBJ))
 
 tests: $(TESTER)
-	@sh tests.sh
 	@$(VALGRIND) ./$(TESTER)
 
 retests: fclean tests
